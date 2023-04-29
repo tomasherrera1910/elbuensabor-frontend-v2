@@ -6,7 +6,7 @@ export default function CustomHead ({ section }: { section: string }) {
       <title>El Buen Sabor | {section}</title>
       <meta name='description' content='Final project UTN rework' />
       <meta name='viewport' content='width=device-width, initial-scale=1' />
-      <link rel='icon' href='/favicon.ico' />
+      <link rel='icon' href='/logo.png' />
     </Head>
   )
 }
