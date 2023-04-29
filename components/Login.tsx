@@ -5,7 +5,10 @@ import PasswordTextField from './PasswordTextField'
 export default function Login () {
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
-    alert('submit')
+    const formData = new FormData(evt.target as HTMLFormElement)
+    const email = formData.get('email')
+    const password = formData.get('password')
+    console.log({ email, password })
   }
   return (
     <Container maxWidth='xs' sx={{ backgroundColor: '#f0f0f0', py: 8, borderRadius: 2, boxShadow: 16 }}>
@@ -13,7 +16,7 @@ export default function Login () {
         <img src='/logo.png' alt='El Buen Sabor Logo' style={{ width: 240 }} />
         <form onSubmit={(evt) => { handleSubmit(evt) }}>
           <Stack gap={2}>
-            <TextField variant='standard' label='Email' placeholder='Johndoe@mail.com' required />
+            <TextField variant='standard' name='email' label='Email' placeholder='Johndoe@mail.com' required />
             <PasswordTextField />
             <Stack gap={1} divider={<Divider orientation='horizontal' flexItem />}>
               <Button variant='contained' color='primary' type='submit'>

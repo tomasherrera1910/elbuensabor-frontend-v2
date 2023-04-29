@@ -5,7 +5,7 @@ export default function PasswordTextField () {
   const [showPassword, setShowPassword] = useState(false)
   return (
     <TextField
-      variant='standard' label='Contraseña' required
+      variant='standard' label='Contraseña' name='password' required
       type={showPassword ? 'text' : 'password'}
       InputProps={{
         endAdornment: (
