@@ -6,9 +6,9 @@ export default function Home () {
   return (
     <>
       <CustomHead section={`${user != null ? 'Home' : 'Login'}`} />
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Login />
-      </div>
+      </main>
     </>
   )
 }
