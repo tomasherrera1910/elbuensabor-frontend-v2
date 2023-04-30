@@ -1,6 +1,7 @@
 import { Container, Stack, TextField, Button, Divider, Typography } from '@mui/material'
 import GoogleIcon from '@mui/icons-material/Google'
 import PasswordTextField from './PasswordTextField'
+import Link from 'next/link'
 
 export default function Login () {
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
@@ -17,7 +18,7 @@ export default function Login () {
         <form onSubmit={(evt) => { handleSubmit(evt) }}>
           <Stack gap={2}>
             <TextField variant='standard' name='email' label='Email' placeholder='Johndoe@mail.com' required />
-            <PasswordTextField />
+            <PasswordTextField name='password' />
             <Stack gap={1} divider={<Divider orientation='horizontal' flexItem />}>
               <Button variant='contained' color='primary' type='submit'>
                 Iniciar Sesión
@@ -27,11 +28,13 @@ export default function Login () {
               </Button>
               <Stack gap={1}>
                 <Typography textAlign='center' variant='subtitle1' color='GrayText'>
-                  ¿Eres nuevo?
+                  ¿Sos nuevo?
                 </Typography>
-                <Button variant='outlined' color='info'>
-                  Crea tu cuenta
-                </Button>
+                <Link href='/registro'>
+                  <Button variant='outlined' color='info' sx={{ width: '100%' }}>
+                    Creá tu cuenta
+                  </Button>
+                </Link>
               </Stack>
             </Stack>
           </Stack>
