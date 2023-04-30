@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { TextField, InputAdornment, IconButton } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
-export default function PasswordTextField ({ name }: { name: string }) {
+export default function PasswordTextField ({ name, label }: { name: string, label: string }) {
   const [showPassword, setShowPassword] = useState(false)
   return (
     <TextField
-      variant='standard' label='Contraseña' name={name} required
+      variant='standard' label={label} name={name} required
       type={showPassword ? 'text' : 'password'}
       InputProps={{
         endAdornment: (

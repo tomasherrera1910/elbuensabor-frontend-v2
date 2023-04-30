@@ -18,8 +18,8 @@ export default function Register () {
           <TextField variant='standard' name='surname' label='Apellido' placeholder='Johndoe@mail.com' required />
           <TextField variant='standard' name='username' label='Email' placeholder='Johndoe@mail.com' required />
           <TextField variant='standard' name='phone' label='Teléfono' placeholder='Johndoe@mail.com' required />
-          <PasswordTextField name='password' />
-          <PasswordTextField name='confirmPassword' />
+          <PasswordTextField name='password' label='Contraseña' />
+          <PasswordTextField name='confirmPassword' label='Confirmar contraseña' />
           <Button variant='contained'>
             Registrarme
           </Button>

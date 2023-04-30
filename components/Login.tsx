@@ -18,7 +18,7 @@ export default function Login () {
         <form onSubmit={(evt) => { handleSubmit(evt) }}>
           <Stack gap={2}>
             <TextField variant='standard' name='email' label='Email' placeholder='Johndoe@mail.com' required />
-            <PasswordTextField name='password' />
+            <PasswordTextField name='password' label='Contraseña' />
             <Stack gap={1} divider={<Divider orientation='horizontal' flexItem />}>
               <Button variant='contained' color='primary' type='submit'>
                 Iniciar Sesión
