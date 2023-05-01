@@ -1,7 +1,8 @@
-import { Button, Stack, TextField } from '@mui/material'
+import { Button, CircularProgress, Stack, TextField } from '@mui/material'
 import { Formik } from 'formik'
 import PasswordTextField from '../PasswordTextField'
 import registerSchema from '@/utils/yup/registerSchema'
+import { postInfo } from '@/utils/CRUDActions'
 
 export default function RegisterForm () {
   return (
@@ -9,10 +10,14 @@ export default function RegisterForm () {
       initialValues={{ email: '', nombre: '', apellido: '', username: '', telefono: '', clave: '', confirmPassword: '' }}
       validationSchema={registerSchema}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2))
-          setSubmitting(false)
-        }, 400)
+        const { confirmPassword, ...restOfValues } = values
+        postInfo('users', undefined, restOfValues)
+          .then(data => {
+            console.log(data)
+          })
+          .finally(() => {
+            setSubmitting(false)
+          })
       }}
     >
       {({
@@ -24,7 +29,11 @@ export default function RegisterForm () {
         handleSubmit,
         isSubmitting
       }) => (
-        <form>
+        <form onSubmit={(evt) => {
+          evt.preventDefault()
+          handleSubmit(evt)
+        }}
+        >
           <Stack gap={2}>
             <TextField
               variant='standard'
@@ -107,9 +116,20 @@ export default function RegisterForm () {
               handleBlur={handleBlur}
               value={values.confirmPassword}
             />
-            <Button variant='contained'>
-              Registrarme
-            </Button>
+            {
+              isSubmitting
+                ? (
+                  <Button variant='contained' disabled endIcon={<CircularProgress size={16} />}>
+                    Cargando...
+                  </Button>
+                  )
+                : (
+                  <Button variant='contained' type='submit'>
+                    Registrarme
+                  </Button>
+                  )
+            }
+
           </Stack>
         </form>
       )}
