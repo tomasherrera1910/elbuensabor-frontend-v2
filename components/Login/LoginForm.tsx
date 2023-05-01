@@ -1,18 +1,25 @@
-import { Button, Stack, TextField } from '@mui/material'
+import { Button, CircularProgress, Stack, TextField } from '@mui/material'
 import { Formik } from 'formik'
 import PasswordTextField from '../PasswordTextField'
 import loginSchema from '@/utils/yup/loginSchema'
+import { postInfo } from '@/utils/CRUDActions'
 
 export default function LoginForm () {
   return (
     <Formik
-      initialValues={{ email: '', password: '' }}
+      initialValues={{ email: '', clave: '' }}
       validationSchema={loginSchema}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2))
-          setSubmitting(false)
-        }, 400)
+        postInfo('login', undefined, values)
+          .then(data => {
+            console.log({ data })
+          })
+          .catch(error => {
+            console.error({ error })
+          })
+          .finally(() => {
+            setSubmitting(false)
+          })
       }}
     >
       {({
@@ -24,7 +31,11 @@ export default function LoginForm () {
         handleSubmit,
         isSubmitting
       }) => (
-        <form>
+        <form onSubmit={(evt) => {
+          evt.preventDefault()
+          handleSubmit()
+        }}
+        >
           <Stack gap={2}>
             <TextField
               variant='standard'
@@ -40,19 +51,28 @@ export default function LoginForm () {
               value={values.email}
             />
             <PasswordTextField
-              name='password'
+              name='clave'
               label='Contraseña'
-              color={errors.password ? 'error' : 'primary'}
-              error={errors.password && touched.password ? true : undefined}
-              helperText={errors.password && touched.password && errors.password}
+              color={errors.clave ? 'error' : 'primary'}
+              error={errors.clave && touched.clave ? true : undefined}
+              helperText={errors.clave && touched.clave && errors.clave}
               handleChange={handleChange}
               handleBlur={handleBlur}
-              value={values.password}
+              value={values.clave}
             />
-            {errors.password && touched.password && errors.password}
-            <Button variant='contained' color='primary' type='submit'>
-              Iniciar Sesión
-            </Button>
+            {
+              isSubmitting
+                ? (
+                  <Button variant='contained' disabled endIcon={<CircularProgress size={16} />}>
+                    Cargando...
+                  </Button>
+                  )
+                : (
+                  <Button variant='contained' type='submit'>
+                    Iniciar Sesión
+                  </Button>
+                  )
+              }
           </Stack>
         </form>
       )}
