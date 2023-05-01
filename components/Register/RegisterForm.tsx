@@ -145,7 +145,7 @@ export default function RegisterForm () {
                     Registrarme
                   </Button>
                   )
-            }
+              }
               {response?.error && <Alert severity='error' variant='outlined'>{response.error}</Alert>}
               {response?.success && <Alert severity='success' variant='outlined' action={<BackLogin />}>{response.success}</Alert>}
             </Stack>
