@@ -14,7 +14,8 @@ export async function postInfo (path: string, token?: string, body?: any) {
     body: JSON.stringify(body)
   })
   if (!response.ok) {
-    return console.error(response)
+    const errorMessage = await response.text()
+    throw new Error(errorMessage)
   }
   const data = await response.json()
   return data
