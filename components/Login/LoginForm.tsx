@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Stack, TextField } from '@mui/material'
+import { Alert, Button, CircularProgress, Stack, TextField } from '@mui/material'
 import { Formik } from 'formik'
 import PasswordTextField from '../PasswordTextField'
 import loginSchema from '@/utils/yup/loginSchema'
@@ -10,13 +10,15 @@ export default function LoginForm () {
   console.log({ userInfo })
   return (
     <Formik
-      initialValues={{ email: '', clave: '' }}
+      initialValues={{ email: '', clave: '', submit: '' }}
       validationSchema={loginSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting, setErrors }) => {
         loginUser(values)
-          .then(_data => {})
+          .then(_data => {
+            setErrors({ submit: '' })
+          })
           .catch(error => {
-            console.error({ error })
+            setErrors({ submit: error.message })
           })
           .finally(() => {
             setSubmitting(false)
@@ -61,6 +63,7 @@ export default function LoginForm () {
               handleBlur={handleBlur}
               value={values.clave}
             />
+            {errors.submit && <Alert severity='error' variant='outlined' sx={{ fontSize: 12 }}>{errors.submit}</Alert>}
             {
               isSubmitting
                 ? (
