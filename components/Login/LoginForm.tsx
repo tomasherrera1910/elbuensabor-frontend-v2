@@ -2,18 +2,19 @@ import { Button, CircularProgress, Stack, TextField } from '@mui/material'
 import { Formik } from 'formik'
 import PasswordTextField from '../PasswordTextField'
 import loginSchema from '@/utils/yup/loginSchema'
-import { postInfo } from '@/utils/CRUDActions'
+import { useUserSession } from '@/store/user'
 
 export default function LoginForm () {
+  const userInfo = useUserSession(state => state.userInfo)
+  const loginUser = useUserSession(state => state.loginUser)
+  console.log({ userInfo })
   return (
     <Formik
       initialValues={{ email: '', clave: '' }}
       validationSchema={loginSchema}
       onSubmit={(values, { setSubmitting }) => {
-        postInfo('login', undefined, values)
-          .then(data => {
-            console.log({ data })
-          })
+        loginUser(values)
+          .then(_data => {})
           .catch(error => {
             console.error({ error })
           })
