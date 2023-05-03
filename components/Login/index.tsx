@@ -5,7 +5,7 @@ import LoginForm from './LoginForm'
 
 export default function Login () {
   return (
-    <Container maxWidth='xs' sx={{ backgroundColor: '#f0f0f0', py: 8, borderRadius: 2, boxShadow: 16 }}>
+    <Container maxWidth='xs' sx={{ backgroundColor: '#f0f0f0', py: 8, borderRadius: 2, boxShadow: { sx: 0, sm: 16 } }}>
       <Stack alignItems='center' justifyContent='center' gap={4}>
         <img src='/logo.png' alt='El Buen Sabor Logo' style={{ width: 240 }} />
         <Stack gap={2}>

@@ -5,7 +5,7 @@ import RegisterForm from './RegisterForm'
 
 export default function Register () {
   return (
-    <Container maxWidth='xs' sx={{ backgroundColor: '#f0f0f0', py: 4, borderRadius: 2, boxShadow: 16, position: 'relative' }}>
+    <Container maxWidth='xs' sx={{ backgroundColor: '#f0f0f0', py: 4, borderRadius: 2, boxShadow: { sx: 0, sm: 16 }, position: 'relative' }}>
       <Stack gap={1} alignItems='center'>
         <img src='/logo.png' alt='El Buen Sabor Logo' style={{ width: 240 }} />
         <Typography variant='h5' textAlign='center'>
