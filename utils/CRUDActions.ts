@@ -1,7 +1,20 @@
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3001'
 
-export function getInfo () {
-  return null
+export async function getInfo (path: string, token?: string) {
+  const url = `${BASE_URL}/${path}`
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+      Authorization: `Bearer ${token ?? ''}`
+    }
+  })
+  if (!response.ok) {
+    const errorMessage = await response.text()
+    throw new Error(errorMessage)
+  }
+  const data = await response.json()
+  return data
 }
 export async function postInfo (path: string, token?: string, body?: any) {
   const url = `${BASE_URL}/${path}`
