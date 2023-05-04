@@ -6,15 +6,15 @@ import useUser from '@/hooks/useUser'
 import LoadingPage from '@/components/LoadingPage'
 
 export default function Home () {
-  const { user, loading } = useUser()
+  const { user, loading, userSession } = useUser()
   return (
     <>
       <CustomHead section={`${loading ? 'Cargando' : user ? 'Home' : 'Login'}`} />
-      {user && <Navbar />}
+      {userSession && !loading && <Navbar />}
       <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         {loading && <LoadingPage />}
-        {user && !loading && <HomeComponent />}
-        {!user && !loading && <Login />}
+        {user && userSession && !loading && <HomeComponent />}
+        {!userSession && !loading && <Login />}
       </main>
     </>
   )

@@ -1,11 +1,11 @@
 import { useUserSession } from '@/store/user'
-import { useUserSensivityInfo } from '@/store/userSensitivityInfo'
+import { useUserAllInfo } from '@/store/userAllInfo'
 import { useEffect, useState } from 'react'
 
 const useUser = () => {
   const userSession = useUserSession(state => state.userInfo)
-  const getProfile = useUserSensivityInfo(state => state.getProfile)
-  const user = useUserSensivityInfo(state => state.user)
+  const getProfile = useUserAllInfo(state => state.getProfile)
+  const user = useUserAllInfo(state => state.user)
   const [loading, isLoading] = useState(true)
   useEffect(() => {
     if (userSession) {
@@ -16,9 +16,11 @@ const useUser = () => {
         .finally(() => {
           isLoading(false)
         })
+    } else {
+      isLoading(false)
     }
   }, [userSession])
-  return { user, loading }
+  return { user, userSession, loading }
 }
 
 export default useUser
