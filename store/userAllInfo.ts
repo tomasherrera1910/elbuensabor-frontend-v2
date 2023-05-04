@@ -6,7 +6,7 @@ interface State {
   user?: User
   getProfile: (token: string) => Promise<void>
 }
-export const useUserSensivityInfo = create<State>((set) => {
+export const useUserAllInfo = create<State>((set) => {
   return {
     user: undefined,
     getProfile: async (token: string) => {
