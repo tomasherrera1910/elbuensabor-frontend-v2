@@ -1,6 +1,5 @@
 import { useUserSession } from '@/store/user'
 import { Button, Container } from '@mui/material'
-import Sidebar from '../Sidebar'
 
 export default function Home () {
   const logout = useUserSession(state => state.logout)
@@ -8,7 +7,6 @@ export default function Home () {
   console.log(userInfo)
   return (
     <>
-      <Sidebar />
       <Container>
         HOME
         <Button onClick={logout}>
