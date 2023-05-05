@@ -12,9 +12,9 @@ export default function Navbar () {
   return (
     <>
       <AppBar position='fixed'>
-        <Toolbar sx={{ justifyContent: { xs: 'space-between', sm: 'space-around' } }}>
+        <Toolbar sx={{ justifyContent: { xs: 'space-between', md: 'space-around' }, paddingLeft: { xs: 0, md: 30, lg: 10, xl: 0 } }}>
           <Stack flexDirection='row'>
-            <IconButton onClick={handleSidebar} color='inherit' sx={{ display: { xs: 'flex', sm: 'none' } }}>
+            <IconButton onClick={handleSidebar} color='inherit' sx={{ display: { xs: 'flex', md: 'none' } }}>
               <Menu />
             </IconButton>
             <Link href='/'>
