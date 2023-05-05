@@ -4,10 +4,10 @@ export default function SectionButton ({ icon, title }: { icon: any, title: stri
   return (
     <ListItem>
       <ListItemButton>
-        <ListItemIcon>
+        <ListItemIcon sx={{ display: 'flex', justifyContent: 'center' }}>
           {icon}
         </ListItemIcon>
-        <ListItemText primary={title} />
+        <ListItemText primary={title} sx={{ display: 'flex', justifyContent: 'center' }} />
       </ListItemButton>
     </ListItem>
   )
