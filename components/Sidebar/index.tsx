@@ -2,6 +2,8 @@ import { useUserAllInfo } from '@/store/userAllInfo'
 import { Close, FoodBank, Logout, LunchDining, OtherHouses, SupervisorAccount } from '@mui/icons-material'
 import { Container, Divider, Drawer, Stack, useMediaQuery, useTheme } from '@mui/material'
 import SectionButton from './SectionButton'
+import { useState } from 'react'
+import ConfirmLogout from './ConfirmLogout'
 
 const menuSections = [
   {
@@ -23,8 +25,11 @@ const menuSections = [
 
 export default function Sidebar ({ open, handleClose }: { open: boolean, handleClose?: () => void }) {
   const user = useUserAllInfo(state => state.user)
+
   const theme = useTheme()
   const smallScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const [showModal, setShowModal] = useState(false)
+  const handleShowModal = () => { setShowModal(!showModal) }
   return (
     <Container sx={{ display: { xs: 'none', md: 'flex' }, width: 240, height: '100vh' }}>
       <Drawer variant={smallScreen ? 'temporary' : 'permanent'} open={open} onClose={handleClose} PaperProps={{ sx: { backgroundColor: theme.palette.primary.main, color: '#fff', paddingTop: { md: 8 }, width: { xs: '100vw', sm: 'auto' }, position: 'fixed' } }}>
@@ -42,8 +47,9 @@ export default function Sidebar ({ open, handleClose }: { open: boolean, handleC
           ))}
         </Stack>
         <Divider />
-        <SectionButton icon={<Logout sx={{ color: '#fff' }} />} title='CERRAR SESIÓN' />
+        <SectionButton icon={<Logout sx={{ color: '#fff' }} />} title='CERRAR SESIÓN' handleClick={handleShowModal} />
       </Drawer>
+      <ConfirmLogout showModal={showModal} handleShowModal={handleShowModal} />
     </Container>
   )
 }
