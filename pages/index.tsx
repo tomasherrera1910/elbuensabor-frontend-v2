@@ -13,7 +13,7 @@ export default function Home () {
       <CustomHead section={`${loading ? 'Cargando' : user ? 'Home' : 'Login'}`} />
       <Stack flexDirection='row'>
         {userSession && !loading && <Navbar />}
-        <main style={{ minHeight: '100vh', flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <main style={{ minHeight: '100vh', flexGrow: 1, display: 'flex', flexDirection: 'column', paddingTop: 80 }}>
           {loading && <LoadingPage />}
           {user && userSession && !loading && <HomeComponent />}
           {!userSession && !loading && <Login />}
