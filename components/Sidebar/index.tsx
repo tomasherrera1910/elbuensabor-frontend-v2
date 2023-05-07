@@ -43,7 +43,7 @@ export default function Sidebar ({ open, handleClose }: { open: boolean, handleC
         <Divider />
         <Stack sx={{ flexGrow: 1 }}>
           {menuSections.map((section) => (
-            <SectionButton icon={section.icon} title={section.title} key={section.title} />
+            <SectionButton icon={section.icon} title={section.title} path={section.path} key={section.title} />
           ))}
         </Stack>
         <Divider />
