@@ -1,24 +1,16 @@
-import Login from '@/components/Login'
 import HomeComponent from '@/components/Home'
 import CustomHead from '@/components/CustomHead'
-import Navbar from '@/components/Navbar'
 import useUser from '@/hooks/useUser'
-import LoadingPage from '@/components/LoadingPage'
-import { Stack } from '@mui/material'
+import Layout from '@/components/Layout'
 
 export default function Home () {
-  const { user, loading, userSession } = useUser()
+  const { user, loading } = useUser()
   return (
     <>
       <CustomHead section={`${loading ? 'Cargando' : user ? 'Home' : 'Login'}`} />
-      <Stack flexDirection='row'>
-        {userSession && !loading && <Navbar />}
-        <main style={{ minHeight: '100vh', flexGrow: 1, display: 'flex', flexDirection: 'column', paddingTop: 80 }}>
-          {loading && <LoadingPage />}
-          {user && userSession && !loading && <HomeComponent />}
-          {!userSession && !loading && <Login />}
-        </main>
-      </Stack>
+      <Layout>
+        <HomeComponent />
+      </Layout>
     </>
   )
 }
