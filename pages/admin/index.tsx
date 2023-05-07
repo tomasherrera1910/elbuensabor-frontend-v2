@@ -1,14 +1,12 @@
 import AdminMenu from '@/components/Admin'
 import CustomHead from '@/components/CustomHead'
-import useUser from '@/hooks/useUser'
 import Layout from '@/components/Layout'
 
-export default function Home () {
-  const { user, loading } = useUser()
+export default function Admin () {
   return (
     <>
-      <CustomHead section={`${loading ? 'Cargando' : user ? 'ADMIN' : 'Login'}`} />
-      <Layout>
+      <CustomHead section='ADMIN' />
+      <Layout disableLoader>
         <AdminMenu />
       </Layout>
     </>
