@@ -6,10 +6,10 @@ export default function SectionButton ({ icon, title, handleClick, path }: { ico
     <Link href={path ?? '/'}>
       <ListItem>
         <ListItemButton onClick={handleClick}>
-          <ListItemIcon sx={{ display: 'flex', justifyContent: 'center' }}>
+          <ListItemIcon sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start', lg: 'center' } }}>
             {icon}
           </ListItemIcon>
-          <ListItemText primary={title} sx={{ display: 'flex', justifyContent: 'center' }} />
+          <ListItemText primary={title} sx={{ display: 'flex', justifyContent: 'center', textAlign: { xs: 'left', md: 'center', lg: 'left' } }} />
         </ListItemButton>
       </ListItem>
     </Link>
