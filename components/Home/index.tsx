@@ -1,13 +1,15 @@
 import { useUserSession } from '@/store/user'
-import { Button, Container, Typography } from '@mui/material'
+import { Button, Container, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 export default function Home () {
   const logout = useUserSession(state => state.logout)
   const userInfo = useUserSession(state => state.userInfo)
   console.log(userInfo)
+  const theme = useTheme()
+  const xlScreen = useMediaQuery(theme.breakpoints.up('xl'))
   return (
     <>
-      <Container>
+      <Container maxWidth={xlScreen ? 'lg' : 'md'}>
         <Typography variant='h3'>
           ¡BIENVENIDO AL BUEN SABOR!
         </Typography>
