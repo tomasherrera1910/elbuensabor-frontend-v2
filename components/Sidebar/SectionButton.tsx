@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function SectionButton ({ icon, title, handleClick, path }: { icon: any, title: string, handleClick?: () => void, path?: string }) {
   return (
-    <Link href={path ?? '/'}>
+    <Link href={{ pathname: path ?? '' }}>
       <ListItem>
         <ListItemButton onClick={handleClick}>
           <ListItemIcon sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start', lg: 'center' } }}>
