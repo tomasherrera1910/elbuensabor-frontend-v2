@@ -1,10 +1,11 @@
 import AdminMenu from '@/components/Admin'
 import CustomHead from '@/components/CustomHead'
 import Layout from '@/components/Layout'
-import { useUserAllInfo } from '@/store/userAllInfo'
+import useUser from '@/hooks/useUser'
 
 export default function Admin () {
-  const user = useUserAllInfo(state => state.user)
+  const { user } = useUser()
+
   return (
     <>
       <CustomHead section='ADMIN' />
