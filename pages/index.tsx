@@ -5,9 +5,10 @@ import Layout from '@/components/Layout'
 
 export default function Home () {
   const { user, loading } = useUser()
+  const headTitle = loading ? 'Cargando' : user ? 'Home' : 'Login'
   return (
     <>
-      <CustomHead section={`${loading ? 'Cargando' : user ? 'Home' : 'Login'}`} />
+      <CustomHead section={`${headTitle}`} />
       <Layout>
         <HomeComponent />
       </Layout>
