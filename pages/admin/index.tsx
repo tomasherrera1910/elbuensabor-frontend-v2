@@ -9,7 +9,7 @@ export default function Admin () {
 
   return (
     <>
-      <CustomHead section={user?.rol === 'ADMIN' ? 'ADMIN' : '404'} />
+      <CustomHead section={user?.rol === 'admin' ? 'ADMIN' : '404'} />
       {user?.rol === 'admin'
         ? (
           <Layout disableLoader>
