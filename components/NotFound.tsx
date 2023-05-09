@@ -6,10 +6,10 @@ export default function NotFound () {
     <Container>
       <Stack justifyContent='center' alignItems='center' gap={4}>
         <img src='/logo.png' width={260} style={{ padding: '16px 0' }} />
-        <Typography variant='h1' textAlign='center'>
+        <Typography variant='h1' fontWeight='700' textAlign='center'>
           ¡404!
         </Typography>
-        <Typography textAlign='center'>
+        <Typography textAlign='center' variant='h5' fontWeight='500'>
           La página a la que desea acceder no existe o no tiene acceso.
         </Typography>
         <Link href='/'>
