@@ -31,7 +31,7 @@ export default function Sidebar ({ open, handleClose }: { open: boolean, handleC
   const [showModal, setShowModal] = useState(false)
   const handleShowModal = () => { setShowModal(!showModal) }
   return (
-    <Container sx={{ display: { xs: 'none', md: 'flex' }, width: { md: 180, lg: 240 }, height: '100vh' }}>
+    <Container sx={{ display: { xs: 'none', md: 'flex' }, width: { md: 180, lg: 260 }, height: '100vh' }}>
       <Drawer variant={smallScreen ? 'temporary' : 'permanent'} open={open} onClose={handleClose} PaperProps={{ sx: { backgroundColor: theme.palette.primary.main, color: '#fff', paddingTop: { md: 8 }, width: { xs: '100vw', md: 180, lg: 260 }, position: 'fixed' } }}>
         {smallScreen && (
           <>
