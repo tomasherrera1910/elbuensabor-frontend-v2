@@ -8,7 +8,7 @@ const useUser = () => {
   const user = useUserAllInfo(state => state.user)
   const [loading, isLoading] = useState(true)
   useEffect(() => {
-    if (userSession && !user) {
+    if (userSession) {
       getProfile(userSession.token)
         .catch(() => {
           console.error('Internal Error')
