@@ -1,5 +1,5 @@
 import { useUserSession } from '@/store/user'
-import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useRouter } from 'next/router'
 
 export default function ConfirmLogout ({ showModal, handleShowModal }: { showModal: boolean, handleShowModal: () => void }) {
@@ -14,15 +14,21 @@ export default function ConfirmLogout ({ showModal, handleShowModal }: { showMod
       open={showModal}
       onClose={handleShowModal}
       aria-labelledby='responsive-dialog-title'
+      sx={{ padding: 4 }}
     >
-      <DialogTitle id='responsive-dialog-title'>
-        ¿Desea cerrar sesión?
+      <DialogTitle id='responsive-dialog-title' textAlign='center'>
+        CERRAR SESIÓN
       </DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          ¿Seguro que desea cerrar sesión?
+        </DialogContentText>
+      </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleShowModal}>
+        <Button autoFocus onClick={handleShowModal} variant='outlined'>
           NO
         </Button>
-        <Button onClick={handleLogout} autoFocus>
+        <Button onClick={handleLogout} autoFocus variant='contained'>
           SI
         </Button>
       </DialogActions>
