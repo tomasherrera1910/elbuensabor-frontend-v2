@@ -2,13 +2,14 @@ import AdminMenu from '@/components/Admin'
 import CustomHead from '@/components/CustomHead'
 import Layout from '@/components/Layout'
 import useUser from '@/hooks/useUser'
+import Custom404 from '../404'
 
 export default function Admin () {
   const { user } = useUser()
 
   return (
     <>
-      <CustomHead section='ADMIN' />
+      <CustomHead section={user?.rol === 'ADMIN' ? 'ADMIN' : '404'} />
       {user?.rol === 'admin'
         ? (
           <Layout disableLoader>
@@ -16,8 +17,7 @@ export default function Admin () {
           </Layout>
           )
         : (
-          // Aca iria el 404
-          <>404</>
+          <Custom404 />
           )}
 
     </>
