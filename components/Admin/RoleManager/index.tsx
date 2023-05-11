@@ -24,6 +24,12 @@ export default function RoleManager () {
           </ListItemText>
         </ListItem>
         <SkeletonUserList loading={loading} />
+        {!users.length && !loading && (
+          <>
+            <Typography variant='h5' textAlign='center' fontWeight={500}>¡No se encontraron usuarios!</Typography>
+            <Typography textAlign='center'>Recuerde buscarlos por Email</Typography>
+          </>
+        )}
         {
           users.slice(0, 20).map(user => (
             <UserItem user={user} key={user.id} handleChangeRol={handleChangeRol} />
