@@ -1,33 +1,41 @@
 import useRoleManager from '@/hooks/useRoleManager'
-import { Container, List, ListItem, ListItemText, MenuItem, Select, Typography } from '@mui/material'
+import { Button, Container, List, ListItem, ListItemText, TextField, Typography } from '@mui/material'
+import SkeletonUserList from './SkeletonUserList'
+import Link from 'next/link'
+import { ArrowBack } from '@mui/icons-material'
+import UserItem from './UserItem'
+import UpdateUserSnackbar from './UpdateUserSnackbar'
 
 export default function RoleManager () {
-  const { users, loading } = useRoleManager()
+  const { users, loading, handleSearch, handleChangeRol, handleSnackbarClose, snackbarInfo } = useRoleManager()
   return (
     <Container maxWidth='sm'>
       <Typography variant='h5' component='h1' fontWeight='900' textAlign='center' marginBottom={4}>
         ROLES DE USUARIO
       </Typography>
+      <TextField label='Buscar' placeholder='Busca por email...' fullWidth onChange={handleSearch} />
       <List>
+        <ListItem>
+          <ListItemText>
+            <Typography fontWeight={700}>EMAIL</Typography>
+          </ListItemText>
+          <ListItemText sx={{ textAlign: 'end', paddingRight: 4 }}>
+            <Typography fontWeight={700}>ROL</Typography>
+          </ListItemText>
+        </ListItem>
+        <SkeletonUserList loading={loading} />
         {
-          users.map(user => (
-            <ListItem key={user.id}>
-              <ListItemText>
-                {user.email}
-              </ListItemText>
-              <Select
-                value={user.rol}
-                label='Rol'
-              >
-                <MenuItem value='admin'>Admin</MenuItem>
-                <MenuItem value='usuario'>Usuario</MenuItem>
-                <MenuItem value='cocinero'>Cocinero</MenuItem>
-                <MenuItem value='cajero'>Cajero</MenuItem>
-              </Select>
-            </ListItem>
+          users.slice(0, 20).map(user => (
+            <UserItem user={user} key={user.id} handleChangeRol={handleChangeRol} />
           ))
         }
+        <UpdateUserSnackbar message={snackbarInfo.message} open={snackbarInfo.open} severity={snackbarInfo.severity} handleClose={handleSnackbarClose} />
       </List>
+      <Link href='/admin'>
+        <Button startIcon={<ArrowBack />}>
+          Volver
+        </Button>
+      </Link>
     </Container>
   )
 }
