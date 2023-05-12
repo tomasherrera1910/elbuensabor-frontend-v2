@@ -11,7 +11,7 @@ const MENU_OPTIONS = [
   {
     title: 'Artículos Insumo',
     icon: <Egg />,
-    path: '/admin/'
+    path: '/admin/supplies'
   },
   {
     title: 'Platos',
