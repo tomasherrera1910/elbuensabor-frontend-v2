@@ -11,7 +11,7 @@ interface Props {
   supplies: ItemSupply[]
 }
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const supplies: ItemSupply[] = await getInfo('articulosManufacturados')
+  const supplies: ItemSupply[] = await getInfo('articulosInsumo')
   return {
     props: {
       supplies
