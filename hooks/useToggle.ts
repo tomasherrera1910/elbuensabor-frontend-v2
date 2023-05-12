@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 const useToggle = (): [boolean, () => void] => {
   const [value, setValue] = useState(false)
   const toggle = useCallback(() => {
-    setValue(!value)
+    setValue(prevValue => !prevValue)
   }, [])
   return [value, toggle]
 }
