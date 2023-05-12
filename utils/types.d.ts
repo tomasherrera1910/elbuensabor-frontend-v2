@@ -26,3 +26,16 @@ interface Order {
 interface Address {
   id: string
 }
+
+export interface ItemSupply {
+  rubro: string
+  denominacion: string
+  precioCompra: number
+  fecha: string
+  precioVenta: number
+  stockActual: number
+  stockMinimo: number
+  unidadMedida: string
+  esInsumo: boolean
+  baja: boolean
+}
