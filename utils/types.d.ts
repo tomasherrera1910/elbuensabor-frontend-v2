@@ -26,16 +26,17 @@ interface Order {
 interface Address {
   id: string
 }
-
+type Rubro = 'Ingrediente' | 'Bebida Alcohólica' | 'Gaseosa' | 'Bebida sin gas'
+type UnidadMedida = 'Unidades' | 'Gramos' | 'Mililitros'
 export interface ItemSupply {
-  rubro: string
+  rubro: Rubro
   denominacion: string
   precioCompra: number
   fecha: string
   precioVenta: number
   stockActual: number
   stockMinimo: number
-  unidadMedida: string
+  unidadMedida: UnidadMedida
   esInsumo: boolean
   baja: boolean
 }
