@@ -1,9 +1,10 @@
 import { ItemSupply } from '@/utils/types'
-import { Button, Container, Typography } from '@mui/material'
+import { Button, Container, Stack, Typography } from '@mui/material'
 import FormModal from './FormModal'
 import useToggle from '@/hooks/useToggle'
 import { Add } from '@mui/icons-material'
 import useSupplies from '@/hooks/useSupplies'
+import SupplyCard from './SupplyCard'
 
 export default function SuppliesManager ({ initialSupplies }: { initialSupplies: ItemSupply[] }) {
   const [showModalForm, handleModalForm] = useToggle()
@@ -18,9 +19,11 @@ export default function SuppliesManager ({ initialSupplies }: { initialSupplies:
       </Button>
       <FormModal open={showModalForm} addNewSupply={addNewSupply} handleClose={handleModalForm} />
       {!supplies?.length && <Typography textAlign='center'>No hay artículos aún!</Typography>}
-      {supplies.map(supply => (
-        <Typography key={supply.id}>{supply.denominacion}</Typography>
-      ))}
+      <Stack direction='row' gap={2} flexWrap='wrap' justifyContent='center'>
+        {supplies.map(supply => (
+          <SupplyCard key={supply.id} supply={supply} />
+        ))}
+      </Stack>
     </Container>
   )
 }
