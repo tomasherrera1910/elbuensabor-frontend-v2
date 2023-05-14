@@ -4,8 +4,9 @@ import { postInfo } from '@/utils/CRUDActions'
 import itemSupplySchema from '@/utils/yup/supplyItemSchema'
 import { Alert, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Stack, TextField, useMediaQuery, useTheme } from '@mui/material'
 import { Formik } from 'formik'
+import { type ItemSupply } from '@/utils/types'
 
-export default function ItemSupplyForm () {
+export default function ItemSupplyForm ({ addNewSupply }: { addNewSupply: (newSupply: ItemSupply) => void }) {
   const theme = useTheme()
   const tabletOrHigherScreen = useMediaQuery(theme.breakpoints.up('sm'))
   const userInfo = useUserSession(state => state.userInfo)
@@ -17,7 +18,8 @@ export default function ItemSupplyForm () {
         validationSchema={itemSupplySchema}
         onSubmit={(values, { setSubmitting }) => {
           postInfo('articulosInsumo', userInfo?.token, values)
-            .then(() => {
+            .then((newSupply: ItemSupply) => {
+              addNewSupply(newSupply)
               setResponse({ success: '¡Articulo agregado con éxito!' })
             })
             .catch((err) => {
