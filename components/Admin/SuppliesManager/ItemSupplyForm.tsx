@@ -6,7 +6,11 @@ import { Alert, Button, CircularProgress, FormControl, InputLabel, MenuItem, Sel
 import { Formik } from 'formik'
 import { type ItemSupply } from '@/utils/types'
 
-export default function ItemSupplyForm ({ addNewSupply }: { addNewSupply: (newSupply: ItemSupply) => void }) {
+interface Props {
+  addNewSupply: (newSupply: ItemSupply) => void
+  edit?: boolean
+}
+export default function ItemSupplyForm ({ addNewSupply, edit = false }: Props) {
   const theme = useTheme()
   const tabletOrHigherScreen = useMediaQuery(theme.breakpoints.up('sm'))
   const userInfo = useUserSession(state => state.userInfo)
@@ -162,7 +166,7 @@ export default function ItemSupplyForm ({ addNewSupply }: { addNewSupply: (newSu
                   )
                 : (
                   <Button variant='contained' type='submit'>
-                    AGREGAR ARTICULO
+                    {edit ? 'Editar Artículo' : 'Agregar Artículo'}
                   </Button>
                   )
               }

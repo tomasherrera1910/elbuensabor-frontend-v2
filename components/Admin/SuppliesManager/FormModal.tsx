@@ -7,8 +7,9 @@ interface Props {
   open: boolean
   handleClose: () => void
   addNewSupply: (newSupply: ItemSupply) => void
+  edit?: boolean
 }
-export default function FormModal ({ open, handleClose, addNewSupply }: Props) {
+export default function FormModal ({ open, handleClose, addNewSupply, edit }: Props) {
   return (
     <Dialog open={open} onClose={handleClose} scroll='paper'>
       <IconButton sx={{ position: 'absolute', right: 0 }} size='large' onClick={handleClose}>
@@ -16,7 +17,7 @@ export default function FormModal ({ open, handleClose, addNewSupply }: Props) {
       </IconButton>
       <Box padding={4}>
         <Typography fontWeight={500} textAlign='center' marginBottom={2}>ARTÍCULO INSUMO</Typography>
-        <ItemSupplyForm addNewSupply={addNewSupply} />
+        <ItemSupplyForm addNewSupply={addNewSupply} edit={edit} />
       </Box>
     </Dialog>
   )
