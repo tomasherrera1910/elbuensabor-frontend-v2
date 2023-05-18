@@ -1,37 +1,26 @@
-import { useState } from 'react'
-import { useUserSession } from '@/store/user'
-import { postInfo } from '@/utils/CRUDActions'
 import itemSupplySchema from '@/utils/yup/supplyItemSchema'
 import { Alert, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Stack, TextField, useMediaQuery, useTheme } from '@mui/material'
 import { Formik } from 'formik'
 import { type ItemSupply } from '@/utils/types'
+import useSuppliesForm from '@/hooks/useSuppliesForm'
 
 interface Props {
-  addNewSupply: (newSupply: ItemSupply) => void
+  handleSupplies: (supply: ItemSupply) => void
   edit?: boolean
+  actualItem?: ItemSupply
 }
-export default function ItemSupplyForm ({ addNewSupply, edit = false }: Props) {
+export default function ItemSupplyForm ({ handleSupplies, edit = false, actualItem = undefined }: Props) {
   const theme = useTheme()
   const tabletOrHigherScreen = useMediaQuery(theme.breakpoints.up('sm'))
-  const userInfo = useUserSession(state => state.userInfo)
-  const [response, setResponse] = useState< null | Record<string, string>>(null)
+  const initialValues = edit && actualItem ? actualItem : { rubro: '', denominacion: '', precioCompra: '', precioVenta: '', stockActual: '', stockMinimo: '', unidadMedida: '' }
+  const { response, handleFormSubmit } = useSuppliesForm({ edit, handleSupplies })
   return (
     <>
       <Formik
-        initialValues={{ rubro: '', denominacion: '', precioCompra: '', precioVenta: '', stockActual: '', stockMinimo: '', unidadMedida: '' }}
+        initialValues={initialValues}
         validationSchema={itemSupplySchema}
         onSubmit={(values, { setSubmitting }) => {
-          postInfo('articulosInsumo', userInfo?.token, values)
-            .then((newSupply: ItemSupply) => {
-              addNewSupply(newSupply)
-              setResponse({ success: '¡Articulo agregado con éxito!' })
-            })
-            .catch((err) => {
-              setResponse({ error: err.message })
-            })
-            .finally(() => {
-              setSubmitting(false)
-            })
+          handleFormSubmit(values, setSubmitting)
         }}
       >
         {({
