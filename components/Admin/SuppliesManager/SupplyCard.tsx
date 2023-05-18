@@ -4,7 +4,7 @@ import { Button, Card, CardActions, CardContent, Typography } from '@mui/materia
 import FormModal from './FormModal'
 import useToggle from '@/hooks/useToggle'
 
-export default function SupplyCard ({ supply }: { supply: ItemSupply }) {
+export default function SupplyCard ({ supply, updateSupply }: { supply: ItemSupply, updateSupply: (supply: ItemSupply) => void }) {
   const [showModalForm, handleModalForm] = useToggle()
   return (
     <>
@@ -25,7 +25,7 @@ export default function SupplyCard ({ supply }: { supply: ItemSupply }) {
           <Button size='small' color='error' variant='outlined' startIcon={<Delete />}>Eliminar</Button>
         </CardActions>
       </Card>
-      <FormModal edit handleClose={handleModalForm} open={showModalForm} addNewSupply={() => {}} />
+      <FormModal edit actualItem={supply} handleClose={handleModalForm} open={showModalForm} handleSupplies={updateSupply} />
     </>
   )
 }
