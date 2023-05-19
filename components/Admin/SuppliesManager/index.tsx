@@ -8,7 +8,7 @@ import SupplyCard from './SupplyCard'
 
 export default function SuppliesManager ({ initialSupplies }: { initialSupplies: ItemSupply[] }) {
   const [showModalForm, handleModalForm] = useToggle()
-  const { supplies, addNewSupply, updateSupply } = useSupplies({ initialSupplies })
+  const { supplies, addNewSupply, updateSupply, removeSupply } = useSupplies({ initialSupplies })
   return (
     <Container maxWidth='md'>
       <Typography variant='h5' component='h1' fontWeight='900' textAlign='center' marginBottom={4}>
@@ -21,7 +21,7 @@ export default function SuppliesManager ({ initialSupplies }: { initialSupplies:
       {!supplies?.length && <Typography textAlign='center'>No hay artículos aún!</Typography>}
       <Stack direction='row' gap={2} flexWrap='wrap' justifyContent='center'>
         {supplies.map(supply => (
-          <SupplyCard key={supply.id} supply={supply} updateSupply={updateSupply} />
+          <SupplyCard key={supply.id} supply={supply} updateSupply={updateSupply} removeSupply={removeSupply} />
         ))}
       </Stack>
     </Container>
