@@ -15,7 +15,7 @@ export default function SupplyCard ({ supply, updateSupply, removeSupply }: Prop
   const [showModalForm, handleModalForm] = useToggle()
   const userInfo = useUserSession(state => state.userInfo)
   const [loading, isLoading] = useState(false)
-  const handleDelete = async (id: string) => {
+  const handleDelete = (id: string) => {
     isLoading(true)
     deleteInfo(`articulosInsumo/${id}`, userInfo?.token)
       .then((_response) => {
