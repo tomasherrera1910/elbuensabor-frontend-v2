@@ -51,3 +51,21 @@ export async function editInfo (path: string, token?: string, body?: any) {
   const data = await response.json()
   return data
 }
+
+export async function deleteInfo (path: string, token?: string) {
+  const url = `${BASE_URL}/${path}`
+  console.log({ url })
+  const response = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token ?? ''}`
+    }
+  })
+
+  if (!response.ok) {
+    const errorMessage = await response.text()
+    throw new Error(errorMessage)
+  } else {
+    return 'ok'
+  }
+}
