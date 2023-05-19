@@ -17,7 +17,12 @@ const useSupplies = ({ initialSupplies }: { initialSupplies: ItemSupply[] }) => 
     })
   }
 
-  return { supplies, addNewSupply, updateSupply }
+  const removeSupply = (id: string) => {
+    setSupplies(prevSupplies => {
+      return prevSupplies.filter(s => s.id !== id)
+    })
+  }
+  return { supplies, addNewSupply, updateSupply, removeSupply }
 }
 
 export default useSupplies
