@@ -41,3 +41,15 @@ export interface ItemSupply {
   esInsumo: boolean
   baja: boolean
 }
+interface DishImage {
+  public_id: string
+  url: string
+}
+export interface ItemManufactured {
+  rubro: string
+  tiempoEstimadoCocina: number
+  denominacion: string
+  precioVenta: number
+  imagen: DishImage
+  ingredientes: string[]
+}
