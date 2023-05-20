@@ -16,7 +16,7 @@ const MENU_OPTIONS = [
   {
     title: 'Platos',
     icon: <LunchDining />,
-    path: '/admin/'
+    path: '/admin/manufactured'
   },
   {
     title: 'Más Pedidos',
