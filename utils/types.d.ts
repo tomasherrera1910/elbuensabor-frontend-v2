@@ -46,6 +46,7 @@ interface DishImage {
   url: string
 }
 export interface ItemManufactured {
+  id: string
   rubro: string
   tiempoEstimadoCocina: number
   denominacion: string
