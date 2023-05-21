@@ -16,7 +16,7 @@ export default function SuppliesManager ({ initialSupplies }: { initialSupplies:
         ARTÍCULOS INSUMOS
       </Typography>
       <Stack flexDirection='row' justifyContent='space-between' alignItems='center'>
-        <Link href='/login'>
+        <Link href='/admin'>
           <Button startIcon={<ArrowBackIos />} size='small'>
             Ir a Admin
           </Button>
