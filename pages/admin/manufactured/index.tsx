@@ -27,7 +27,7 @@ export default function Manufactured ({ manufacturedItems }: Props) {
       {user?.rol === 'admin'
         ? (
           <Layout disableLoader>
-            <ManufacturedManager />
+            <ManufacturedManager initialItems={manufacturedItems} />
           </Layout>
           )
         : (
