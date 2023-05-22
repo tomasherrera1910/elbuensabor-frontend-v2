@@ -45,9 +45,10 @@ interface DishImage {
   public_id: string
   url: string
 }
+type DishRubro = 'Pizzas' | 'Lomos' | 'Hamburguesas' | 'Empanadas'
 export interface ItemManufactured {
   id: string
-  rubro: string
+  rubro: DishRubro
   tiempoEstimadoCocina: number
   denominacion: string
   precioVenta: number
