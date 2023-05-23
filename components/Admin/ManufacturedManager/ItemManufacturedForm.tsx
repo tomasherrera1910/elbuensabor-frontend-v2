@@ -4,11 +4,11 @@ import { Formik } from 'formik'
 import { type ItemManufactured } from '@/utils/types'
 
 interface Props {
-  handleDishes: (dish: ItemManufactured) => void
+  handleDishes?: (dish: ItemManufactured) => void
   edit?: boolean
   actualItem?: ItemManufactured
 }
-export default function ItemSupplyForm ({ handleDishes, edit = false, actualItem = undefined }: Props) {
+export default function ItemManufacturedForm ({ handleDishes, edit = false, actualItem = undefined }: Props) {
   const theme = useTheme()
   const tabletOrHigherScreen = useMediaQuery(theme.breakpoints.up('sm'))
   const initialValues = edit && actualItem ? actualItem : { rubro: '', denominacion: '', precioVenta: '', imagen: '' }

@@ -1,6 +1,7 @@
 import { Box, Dialog, IconButton, Typography } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import { type ItemSupply } from '@/utils/types'
+import ItemManufacturedForm from './ItemManufacturedForm'
 
 interface Props {
   open: boolean
@@ -17,6 +18,7 @@ export default function DishFormModal ({ open, handleClose, edit, actualItem }: 
       </IconButton>
       <Box padding={4}>
         <Typography fontWeight={500} textAlign='center' marginBottom={2}>PLATO</Typography>
+        <ItemManufacturedForm />
       </Box>
     </Dialog>
   )
