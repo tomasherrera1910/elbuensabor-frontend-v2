@@ -1,5 +1,5 @@
 import manufacturedItemSchema from '@/utils/yup/manufacturedItemSchema'
-import { Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Stack, TextField, useMediaQuery, useTheme } from '@mui/material'
+import { Button, CircularProgress, FormControl, Input, InputLabel, MenuItem, Select, Stack, TextField, useMediaQuery, useTheme } from '@mui/material'
 import { Formik } from 'formik'
 import { type ItemManufactured } from '@/utils/types'
 
@@ -18,6 +18,7 @@ export default function ItemManufacturedForm ({ handleDishes, edit = false, actu
         initialValues={initialValues}
         validationSchema={manufacturedItemSchema}
         onSubmit={(values, { setSubmitting }) => {
+          console.log({ values })
         //   handleFormSubmit(values, setSubmitting)
         }}
       >
@@ -28,6 +29,7 @@ export default function ItemManufacturedForm ({ handleDishes, edit = false, actu
           handleChange,
           handleBlur,
           handleSubmit,
+          setFieldValue,
           isSubmitting
         }) => (
           <form onSubmit={(evt) => {
@@ -87,16 +89,13 @@ export default function ItemManufacturedForm ({ handleDishes, edit = false, actu
                 />
               </Stack>
               <Stack direction={tabletOrHigherScreen ? 'row' : 'column'} gap={2} justifyContent='center'>
-                <TextField
-                  variant='standard'
-                  name='stockMinimo'
-                  label='Imagen'
+                <Input
+                  name='imagen'
                   type='file'
-                  color={errors.imagen ? 'error' : 'primary'}
-                  error={errors.imagen && touched.imagen ? true : undefined}
-                  onChange={handleChange}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setFieldValue('imagen', event.currentTarget.files?.[0] ?? null)
+                  }}
                   onBlur={handleBlur}
-                  value={values.imagen}
                 />
               </Stack>
               {
