@@ -2,6 +2,8 @@ import manufacturedItemSchema from '@/utils/yup/manufacturedItemSchema'
 import { Button, CircularProgress, FormControl, Input, InputLabel, MenuItem, Select, Stack, TextField, useMediaQuery, useTheme } from '@mui/material'
 import { Formik } from 'formik'
 import { type ItemManufactured } from '@/utils/types'
+import { postInfoFormData } from '@/utils/CRUDActions'
+import { useUserSession } from '@/store/user'
 
 interface Props {
   handleDishes?: (dish: ItemManufactured) => void
@@ -11,15 +13,27 @@ interface Props {
 export default function ItemManufacturedForm ({ handleDishes, edit = false, actualItem = undefined }: Props) {
   const theme = useTheme()
   const tabletOrHigherScreen = useMediaQuery(theme.breakpoints.up('sm'))
-  const initialValues = edit && actualItem ? actualItem : { rubro: '', denominacion: '', precioVenta: '', imagen: '' }
+  const userInfo = useUserSession(state => state.userInfo)
+  const initialValues = edit && actualItem ? actualItem : { rubro: '', denominacion: '', precioVenta: '', tiempoEstimadoCocina: '', imagen: '' }
   return (
     <>
       <Formik
         initialValues={initialValues}
         validationSchema={manufacturedItemSchema}
         onSubmit={(values, { setSubmitting }) => {
-          console.log({ values })
-        //   handleFormSubmit(values, setSubmitting)
+          const data = new FormData()
+          data.append('imagen', values.imagen as string | Blob)
+          data.append('rubro', values.rubro)
+          data.append('denominacion', values.denominacion)
+          data.append('precioVenta', String(values.precioVenta))
+          data.append('tiempoEstimadoCocina', String(values.tiempoEstimadoCocina))
+          postInfoFormData('articulosManufacturados', userInfo?.token, data)
+            .then((response) => {
+              console.log(response)
+            })
+            .finally(() => {
+              setSubmitting(false)
+            })
         }}
       >
         {({
@@ -86,6 +100,20 @@ export default function ItemManufacturedForm ({ handleDishes, edit = false, actu
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.precioVenta}
+                />
+                <TextField
+                  variant='standard'
+                  name='tiempoEstimadoCocina'
+                  label='Tiempo en cocinar (minutos)'
+                  type='number'
+                  placeholder='100'
+                  required
+                  color={errors.tiempoEstimadoCocina ? 'error' : 'primary'}
+                  error={errors.tiempoEstimadoCocina && touched.tiempoEstimadoCocina ? true : undefined}
+                  helperText={errors.tiempoEstimadoCocina && touched.tiempoEstimadoCocina && errors.tiempoEstimadoCocina}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.tiempoEstimadoCocina}
                 />
               </Stack>
               <Stack direction={tabletOrHigherScreen ? 'row' : 'column'} gap={2} justifyContent='center'>
