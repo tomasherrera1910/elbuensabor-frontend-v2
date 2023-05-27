@@ -4,11 +4,12 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@
 
 export default function DishCard ({ dish }: { dish: ItemManufactured }) {
   return (
-    <Card key={dish.id}>
+    <Card key={dish.id} sx={{ width: 248 }}>
       <CardMedia
         component='img'
         image={dish.imagen.url}
         alt='Dish image'
+        sx={{ width: 248, height: 164, objectFit: 'cover' }}
       />
       <CardContent>
         <Typography gutterBottom variant='h5'>
