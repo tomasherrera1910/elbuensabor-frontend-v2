@@ -71,12 +71,11 @@ export async function deleteInfo (path: string, token?: string) {
 }
 
 export async function postInfoFormData (path: string, token?: string, body?: any) {
-  console.log({ body })
   const url = `${BASE_URL}/${path}`
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Content-Type': 'multipart/form-data',
+      // 'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token ?? ''}`
     },
     body
