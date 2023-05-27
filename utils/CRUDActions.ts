@@ -21,7 +21,7 @@ export async function postInfo (path: string, token?: string, body?: any) {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json; charset=UTF-8',
       Authorization: `Bearer ${token ?? ''}`
     },
     body: JSON.stringify(body)
@@ -68,4 +68,23 @@ export async function deleteInfo (path: string, token?: string) {
   } else {
     return 'ok'
   }
+}
+
+export async function postInfoFormData (path: string, token?: string, body?: any) {
+  console.log({ body })
+  const url = `${BASE_URL}/${path}`
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token ?? ''}`
+    },
+    body
+  })
+  if (!response.ok) {
+    const errorMessage = await response.text()
+    throw new Error(errorMessage)
+  }
+  const data = await response.json()
+  return data
 }
