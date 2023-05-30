@@ -46,6 +46,14 @@ interface DishImage {
   url: string
 }
 type DishRubro = 'Pizzas' | 'Lomos' | 'Hamburguesas' | 'Empanadas'
+export interface Ingredient {
+  id: string
+  cantidad: number
+  unidadMedida: string
+  nombre: string
+  articuloInsumo: string
+  articuloManufacturado: string
+}
 export interface ItemManufactured {
   id: string
   rubro: DishRubro
@@ -53,5 +61,5 @@ export interface ItemManufactured {
   denominacion: string
   precioVenta: number
   imagen: DishImage
-  ingredientes: string[]
+  ingredientes: Ingredient[]
 }
