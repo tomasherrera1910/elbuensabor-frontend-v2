@@ -4,21 +4,25 @@ import Layout from '@/components/Layout'
 import useUser from '@/hooks/useUser'
 import Custom404 from '@/pages/404'
 import { getInfo } from '@/utils/CRUDActions'
-import { type ItemManufactured } from '@/utils/types'
+import { ItemSupply, type ItemManufactured } from '@/utils/types'
 import { GetServerSideProps } from 'next'
 
 interface Props {
   manufacturedItems: ItemManufactured[]
+  suppliesItems: ItemSupply[]
 }
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const manufacturedItems: ItemManufactured[] = await getInfo('articulosManufacturados')
+  const suppliesItems: ItemSupply[] = await getInfo('articulosInsumo')
+  const ingredients = suppliesItems.filter(s => !s.esInsumo)
   return {
     props: {
-      manufacturedItems
+      manufacturedItems,
+      suppliesItems: ingredients
     }
   }
 }
-export default function Manufactured ({ manufacturedItems }: Props) {
+export default function Manufactured ({ manufacturedItems, suppliesItems }: Props) {
   const { user } = useUser()
 
   return (
@@ -27,7 +31,7 @@ export default function Manufactured ({ manufacturedItems }: Props) {
       {user?.rol === 'admin'
         ? (
           <Layout disableLoader>
-            <ManufacturedManager initialItems={manufacturedItems} />
+            <ManufacturedManager initialItems={manufacturedItems} supplies={suppliesItems} />
           </Layout>
           )
         : (
