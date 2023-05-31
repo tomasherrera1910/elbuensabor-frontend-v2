@@ -1,15 +1,16 @@
-import { ItemManufactured } from '@/utils/types'
+import { ItemManufactured, ItemSupply } from '@/utils/types'
 import { Delete, Edit } from '@mui/icons-material'
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
+import Ingredients from './Ingredients'
 
-export default function DishCard ({ dish }: { dish: ItemManufactured }) {
+export default function DishCard ({ dish, supplies }: { dish: ItemManufactured, supplies: ItemSupply[] }) {
   return (
-    <Card key={dish.id} sx={{ width: 248 }}>
+    <Card key={dish.id} sx={{ width: 300 }}>
       <CardMedia
         component='img'
         image={dish.imagen.url}
         alt='Dish image'
-        sx={{ width: 248, height: 164, objectFit: 'cover' }}
+        sx={{ width: 300, height: 164, objectFit: 'cover' }}
       />
       <CardContent>
         <Typography gutterBottom variant='h5'>
@@ -18,6 +19,7 @@ export default function DishCard ({ dish }: { dish: ItemManufactured }) {
         <Typography variant='body2' color='text.secondary'>
           {dish.rubro} • ${dish.precioVenta}
         </Typography>
+        <Ingredients ingredients={dish.ingredientes} dishId={dish.id} supplies={supplies} />
       </CardContent>
       <CardActions>
         <Button size='small' variant='outlined' startIcon={<Edit />}>Editar</Button>
