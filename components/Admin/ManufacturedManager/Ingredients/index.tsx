@@ -1,6 +1,7 @@
 import { ItemSupply, type Ingredient } from '@/utils/types'
 import { Typography } from '@mui/material'
 import IngredientForm from './IngredientForm'
+import IngredientCard from './IngredientCard'
 
 interface Props {
   ingredients: Ingredient[]
@@ -14,7 +15,7 @@ export default function Ingredients ({ ingredients, dishId, supplies }: Props) {
         Ingredientes
       </Typography>
       {ingredients.length > 0 && ingredients.map(i => (
-        <Typography variant='body2' key={i.id}>{i.nombre} <span style={{ fontSize: 12 }}>({i.cantidad} {i.unidadMedida})</span></Typography>
+        <IngredientCard key={i.id} ingredient={i} />
       ))}
       <IngredientForm supplies={supplies} dishId={dishId} />
     </>
