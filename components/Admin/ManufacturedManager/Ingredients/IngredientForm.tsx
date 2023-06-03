@@ -1,11 +1,16 @@
 import { useUserSession } from '@/store/user'
 import { postInfo } from '@/utils/CRUDActions'
-import { type ItemSupply } from '@/utils/types'
+import { Ingredient, type ItemSupply } from '@/utils/types'
 import { Add } from '@mui/icons-material'
 import { FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material'
 import React, { useState } from 'react'
 
-export default function IngredientForm ({ supplies, dishId }: { supplies: ItemSupply[], dishId: string }) {
+interface Props {
+  supplies: ItemSupply[]
+  dishId: string
+  addIngredient: (newIngredient: Ingredient) => void
+}
+export default function IngredientForm ({ supplies, dishId, addIngredient }: Props) {
   const userInfo = useUserSession(state => state.userInfo)
   const [selectedSupply, setSelectedSupply] = useState<ItemSupply | undefined>(undefined)
   const [quantity, setQuantity] = useState('')
@@ -18,7 +23,9 @@ export default function IngredientForm ({ supplies, dishId }: { supplies: ItemSu
   const handleAddIngredient = (evt: React.FormEvent) => {
     evt.preventDefault()
     postInfo(`articulosManuDetalle/${dishId}`, userInfo?.token, { cantidad: quantity, articuloInsumo: selectedSupply?.id })
-      .then(() => {})
+      .then((data) => {
+        addIngredient(data)
+      })
       .catch(() => {})
       .finally(() => {})
   }
