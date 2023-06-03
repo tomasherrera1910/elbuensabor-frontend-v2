@@ -12,17 +12,17 @@ interface Props {
 }
 export default function IngredientForm ({ supplies, dishId, addIngredient }: Props) {
   const userInfo = useUserSession(state => state.userInfo)
-  const [selectedSupply, setSelectedSupply] = useState<ItemSupply | undefined>(undefined)
   const [quantity, setQuantity] = useState('')
+  const [selectedSupply, setSelectedSupply] = useState<'' | ItemSupply>('')
   const handleSupply = (evt: SelectChangeEvent<string>) => {
-    setSelectedSupply(supplies.find(s => s.id === evt.target.value) ?? undefined)
+    setSelectedSupply(supplies.find(s => s.id === evt.target.value) ?? '')
   }
   const handleQuantity = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(evt.target.value)
   }
   const handleAddIngredient = (evt: React.FormEvent) => {
     evt.preventDefault()
-    postInfo(`articulosManuDetalle/${dishId}`, userInfo?.token, { cantidad: quantity, articuloInsumo: selectedSupply?.id })
+    postInfo(`articulosManuDetalle/${dishId}`, userInfo?.token, { cantidad: quantity, articuloInsumo: (selectedSupply as ItemSupply)?.id })
       .then((data) => {
         addIngredient(data)
       })
@@ -38,6 +38,7 @@ export default function IngredientForm ({ supplies, dishId, addIngredient }: Pro
           onChange={handleSupply}
           variant='standard'
           label='Ingrendiente'
+          defaultValue={supplies[0].id}
         >
           {supplies.map(s => (
             <MenuItem key={s.id} value={s.id}>{s.denominacion}</MenuItem>
@@ -46,7 +47,7 @@ export default function IngredientForm ({ supplies, dishId, addIngredient }: Pro
       </FormControl>
       <TextField
         variant='standard'
-        label={`${selectedSupply?.unidadMedida ?? 'Cantidad'}`}
+        label={`${(selectedSupply as ItemSupply)?.unidadMedida ?? 'Cantidad'}`}
         placeholder='Ej: 200'
         required
         size='small'
