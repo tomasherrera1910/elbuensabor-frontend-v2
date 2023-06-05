@@ -13,7 +13,7 @@ interface Props {
 export default function IngredientForm ({ supplies, dishId, addIngredient }: Props) {
   const userInfo = useUserSession(state => state.userInfo)
   const [quantity, setQuantity] = useState('')
-  const [selectedSupply, setSelectedSupply] = useState<'' | ItemSupply>('')
+  const [selectedSupply, setSelectedSupply] = useState<'' | ItemSupply>(supplies[0])
   const handleSupply = (evt: SelectChangeEvent<string>) => {
     setSelectedSupply(supplies.find(s => s.id === evt.target.value) ?? '')
   }
