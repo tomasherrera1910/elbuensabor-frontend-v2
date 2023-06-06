@@ -1,3 +1,4 @@
+import { getInfo } from '@/utils/CRUDActions'
 import { type ItemManufactured } from '@/utils/types'
 import { useState } from 'react'
 
@@ -5,7 +6,13 @@ const useDishes = ({ initialItems }: { initialItems: ItemManufactured[] }) => {
   const [dishes, setDishes] = useState(initialItems)
 
   const addNewSupply = (newDish: ItemManufactured) => {
-    setDishes([...dishes, newDish])
+    getInfo('articulosManufacturados')
+      .then(response => {
+        setDishes(response as ItemManufactured[])
+      })
+      .catch(() => {
+        console.error('Ha ocurrido un error')
+      })
   }
 
   const updateSupply = (dish: ItemManufactured) => {
