@@ -5,7 +5,7 @@ import { useState } from 'react'
 const useDishes = ({ initialItems }: { initialItems: ItemManufactured[] }) => {
   const [dishes, setDishes] = useState(initialItems)
 
-  const addNewSupply = (newDish: ItemManufactured) => {
+  const addNewSupply = () => {
     getInfo('articulosManufacturados')
       .then(response => {
         setDishes(response as ItemManufactured[])
