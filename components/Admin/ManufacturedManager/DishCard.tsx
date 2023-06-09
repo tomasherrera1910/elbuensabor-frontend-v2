@@ -4,13 +4,17 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@
 import Ingredients from './Ingredients'
 import { useUserSession } from '@/store/user'
 import { deleteInfo } from '@/utils/CRUDActions'
+import useToggle from '@/hooks/useToggle'
+import DishFormModal from './FormModal'
 
 interface Props {
   dish: ItemManufactured
   supplies: ItemSupply[]
   removeSupply: (id: string) => void
+  updateSupply: (dish: ItemManufactured) => void
 }
-export default function DishCard ({ dish, supplies, removeSupply }: Props) {
+export default function DishCard ({ dish, supplies, removeSupply, updateSupply }: Props) {
+  const [open, handleFormModal] = useToggle()
   const userInfo = useUserSession(state => state.userInfo)
   const handleDelete = (id: string) => {
     deleteInfo(`articulosManufacturados/${id}`, userInfo?.token)
@@ -23,26 +27,29 @@ export default function DishCard ({ dish, supplies, removeSupply }: Props) {
       })
   }
   return (
-    <Card key={dish.id} sx={{ width: 300 }}>
-      <CardMedia
-        component='img'
-        image={dish.imagen.url}
-        alt='Dish image'
-        sx={{ width: 300, height: 164, objectFit: 'cover' }}
-      />
-      <CardContent>
-        <Typography gutterBottom variant='h5'>
-          {dish.denominacion}
-        </Typography>
-        <Typography variant='body2' color='text.secondary'>
-          {dish.rubro} • ${dish.precioVenta}
-        </Typography>
-        <Ingredients ingredients={dish.ingredientes} dishId={dish.id} supplies={supplies} />
-      </CardContent>
-      <CardActions>
-        <Button size='small' variant='outlined' startIcon={<Edit />}>Editar</Button>
-        <Button size='small' color='error' variant='outlined' startIcon={<Delete />} onClick={() => { handleDelete(dish.id) }}>Eliminar</Button>
-      </CardActions>
-    </Card>
+    <>
+      <Card key={dish.id} sx={{ width: 300 }}>
+        <CardMedia
+          component='img'
+          image={dish.imagen.url}
+          alt='Dish image'
+          sx={{ width: 300, height: 164, objectFit: 'cover' }}
+        />
+        <CardContent>
+          <Typography gutterBottom variant='h5'>
+            {dish.denominacion}
+          </Typography>
+          <Typography variant='body2' color='text.secondary'>
+            {dish.rubro} • ${dish.precioVenta}
+          </Typography>
+          <Ingredients ingredients={dish.ingredientes} dishId={dish.id} supplies={supplies} />
+        </CardContent>
+        <CardActions>
+          <Button size='small' variant='outlined' startIcon={<Edit />} onClick={() => { handleFormModal() }}>Editar</Button>
+          <Button size='small' color='error' variant='outlined' startIcon={<Delete />} onClick={() => { handleDelete(dish.id) }}>Eliminar</Button>
+        </CardActions>
+      </Card>
+      <DishFormModal handleClose={handleFormModal} open={open} />
+    </>
   )
 }
