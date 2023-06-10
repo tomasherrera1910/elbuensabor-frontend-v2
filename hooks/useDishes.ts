@@ -5,7 +5,7 @@ import { useState } from 'react'
 const useDishes = ({ initialItems }: { initialItems: ItemManufactured[] }) => {
   const [dishes, setDishes] = useState(initialItems)
 
-  const addNewSupply = () => {
+  const addNewDish = () => {
     getInfo('articulosManufacturados')
       .then(response => {
         setDishes(response as ItemManufactured[])
@@ -15,7 +15,7 @@ const useDishes = ({ initialItems }: { initialItems: ItemManufactured[] }) => {
       })
   }
 
-  const updateSupply = (dish: ItemManufactured) => {
+  const updateDish = (dish: ItemManufactured) => {
     setDishes(prevDishes => {
       const dishesCopy: ItemManufactured[] = window.structuredClone(prevDishes)
       const idxToUpdate = dishesCopy.findIndex(d => d.id === dish.id)
@@ -24,12 +24,12 @@ const useDishes = ({ initialItems }: { initialItems: ItemManufactured[] }) => {
     })
   }
 
-  const removeSupply = (id: string) => {
+  const removeDish = (id: string) => {
     setDishes(prevDishes => {
       return prevDishes.filter(d => d.id !== id)
     })
   }
-  return { dishes, addNewSupply, updateSupply, removeSupply }
+  return { dishes, addNewDish, updateDish, removeDish }
 }
 
 export default useDishes
