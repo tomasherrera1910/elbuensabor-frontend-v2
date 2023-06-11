@@ -9,9 +9,9 @@ interface Props {
   //   handleSupplies: (supply: ItemSupply) => void
   edit?: boolean
   actualItem?: ItemSupply
-  addNewSupply: () => void
+  addNewDish?: () => void
 }
-export default function DishFormModal ({ open, handleClose, edit, actualItem, addNewSupply }: Props) {
+export default function DishFormModal ({ open, handleClose, edit, actualItem, addNewDish }: Props) {
   return (
     <Dialog open={open} onClose={handleClose} scroll='paper'>
       <IconButton sx={{ position: 'absolute', right: 0 }} size='large' onClick={handleClose}>
@@ -19,7 +19,7 @@ export default function DishFormModal ({ open, handleClose, edit, actualItem, ad
       </IconButton>
       <Box padding={4}>
         <Typography fontWeight={500} textAlign='center' marginBottom={2}>PLATO</Typography>
-        <ItemManufacturedForm addNewSupply={addNewSupply} />
+        <ItemManufacturedForm addNewDish={addNewDish} />
       </Box>
     </Dialog>
   )

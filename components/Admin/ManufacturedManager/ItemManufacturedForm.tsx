@@ -9,9 +9,9 @@ interface Props {
   handleDishes?: (dish: ItemManufactured) => void
   edit?: boolean
   actualItem?: ItemManufactured
-  addNewSupply: () => void
+  addNewDish?: () => void
 }
-export default function ItemManufacturedForm ({ handleDishes, edit = false, actualItem = undefined, addNewSupply }: Props) {
+export default function ItemManufacturedForm ({ handleDishes, edit = false, actualItem = undefined, addNewDish = () => {} }: Props) {
   const theme = useTheme()
   const tabletOrHigherScreen = useMediaQuery(theme.breakpoints.up('sm'))
   const userInfo = useUserSession(state => state.userInfo)
@@ -30,7 +30,7 @@ export default function ItemManufacturedForm ({ handleDishes, edit = false, actu
           data.append('tiempoEstimadoCocina', String(values.tiempoEstimadoCocina))
           postInfoFormData('articulosManufacturados', userInfo?.token, data)
             .then((_response) => {
-              addNewSupply()
+              addNewDish()
             })
             .finally(() => {
               setSubmitting(false)

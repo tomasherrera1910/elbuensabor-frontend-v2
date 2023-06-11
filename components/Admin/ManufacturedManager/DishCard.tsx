@@ -10,17 +10,17 @@ import DishFormModal from './FormModal'
 interface Props {
   dish: ItemManufactured
   supplies: ItemSupply[]
-  removeSupply: (id: string) => void
-  updateSupply: (dish: ItemManufactured) => void
+  removeDish: (id: string) => void
+  updateDish: (dish: ItemManufactured) => void
 }
-export default function DishCard ({ dish, supplies, removeSupply, updateSupply }: Props) {
+export default function DishCard ({ dish, supplies, removeDish, updateDish }: Props) {
   const [open, handleFormModal] = useToggle()
   const userInfo = useUserSession(state => state.userInfo)
   const handleDelete = (id: string) => {
     deleteInfo(`articulosManufacturados/${id}`, userInfo?.token)
       .then((_response) => {
         console.log('entro')
-        removeSupply(id)
+        removeDish(id)
       })
       .catch((error) => {
         console.error('Error: ', error)
