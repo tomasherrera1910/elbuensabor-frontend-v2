@@ -8,7 +8,7 @@ import useDishes from '@/hooks/useDishes'
 import DishCard from './DishCard'
 
 export default function ManufacturedManager ({ initialItems, supplies }: { initialItems: ItemManufactured[], supplies: ItemSupply[] }) {
-  const { dishes, addNewSupply, removeSupply, updateSupply } = useDishes({ initialItems })
+  const { dishes, addNewDish, removeDish, updateDish } = useDishes({ initialItems })
   const [open, handleFormModal] = useToggle()
   return (
     <Container maxWidth='md'>
@@ -25,11 +25,11 @@ export default function ManufacturedManager ({ initialItems, supplies }: { initi
           Agregar Plato
         </Button>
       </Stack>
-      <DishFormModal open={open} handleClose={handleFormModal} addNewSupply={addNewSupply} />
+      <DishFormModal open={open} handleClose={handleFormModal} addNewDish={addNewDish} />
       {!dishes?.length && <Typography textAlign='center'>No hay platos aún!</Typography>}
       <Stack direction='row' gap={2} flexWrap='wrap' justifyContent='center'>
         {dishes.map(dish => (
-          <DishCard key={dish.id} dish={dish} supplies={supplies} removeSupply={removeSupply} updateSupply={updateSupply} />
+          <DishCard key={dish.id} dish={dish} supplies={supplies} removeDish={removeDish} updateDish={updateDish} />
         ))}
       </Stack>
     </Container>
