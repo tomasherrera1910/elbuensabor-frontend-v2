@@ -49,7 +49,7 @@ export default function DishCard ({ dish, supplies, removeDish, updateDish }: Pr
           <Button size='small' color='error' variant='outlined' startIcon={<Delete />} onClick={() => { handleDelete(dish.id) }}>Eliminar</Button>
         </CardActions>
       </Card>
-      <DishFormModal handleClose={handleFormModal} open={open} />
+      <DishFormModal handleClose={handleFormModal} open={open} actualDish={dish} edit />
     </>
   )
 }
