@@ -8,14 +8,14 @@ import { useUserSession } from '@/store/user'
 interface Props {
   handleDishes?: (dish: ItemManufactured) => void
   edit?: boolean
-  actualItem?: ItemManufactured
+  actualDish?: ItemManufactured
   addNewDish?: () => void
 }
-export default function ItemManufacturedForm ({ handleDishes, edit = false, actualItem = undefined, addNewDish = () => {} }: Props) {
+export default function ItemManufacturedForm ({ handleDishes, edit = false, actualDish = undefined, addNewDish = () => {} }: Props) {
   const theme = useTheme()
   const tabletOrHigherScreen = useMediaQuery(theme.breakpoints.up('sm'))
   const userInfo = useUserSession(state => state.userInfo)
-  const initialValues = edit && actualItem ? actualItem : { rubro: '', denominacion: '', precioVenta: '', tiempoEstimadoCocina: '', imagen: '' }
+  const initialValues = edit && actualDish ? actualDish : { rubro: '', denominacion: '', precioVenta: '', tiempoEstimadoCocina: '', imagen: '' }
   return (
     <>
       <Formik
@@ -62,6 +62,7 @@ export default function ItemManufacturedForm ({ handleDishes, edit = false, actu
                     id='rubro'
                     name='rubro'
                     value={values.rubro}
+                    defaultValue={values.rubro}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={errors.rubro && touched.rubro ? true : undefined}
