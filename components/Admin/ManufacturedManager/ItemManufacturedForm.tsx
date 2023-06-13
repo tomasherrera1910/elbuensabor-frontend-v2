@@ -8,7 +8,7 @@ import { useUserSession } from '@/store/user'
 interface Props {
   handleDishes?: (dish: ItemManufactured) => void
   edit?: boolean
-  actualDish?: ItemManufactured
+  actualDish?: Partial<ItemManufactured>
   addNewDish?: () => void
 }
 export default function ItemManufacturedForm ({ handleDishes, edit = false, actualDish = undefined, addNewDish = () => {} }: Props) {
