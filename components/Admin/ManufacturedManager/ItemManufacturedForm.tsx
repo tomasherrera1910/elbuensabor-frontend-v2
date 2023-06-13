@@ -8,14 +8,14 @@ import { useUserSession } from '@/store/user'
 interface Props {
   handleDishes?: (dish: ItemManufactured) => void
   edit?: boolean
-  actualDish?: Partial<ItemManufactured>
+  actualDish?: ItemManufactured
   addNewDish?: () => void
 }
 export default function ItemManufacturedForm ({ handleDishes, edit = false, actualDish = undefined, addNewDish = () => {} }: Props) {
   const theme = useTheme()
   const tabletOrHigherScreen = useMediaQuery(theme.breakpoints.up('sm'))
   const userInfo = useUserSession(state => state.userInfo)
-  const initialValues = edit && actualDish ? actualDish : { rubro: '', denominacion: '', precioVenta: '', tiempoEstimadoCocina: '', imagen: '' }
+  const initialValues = edit && actualDish ? { ...actualDish, imagen: '' } : { rubro: '', denominacion: '', precioVenta: '', tiempoEstimadoCocina: '', imagen: '' }
   return (
     <>
       <Formik
