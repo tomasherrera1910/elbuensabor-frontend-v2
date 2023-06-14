@@ -18,7 +18,7 @@ export default function DishFormModal ({ open, handleClose, edit, actualDish, ad
         <Close />
       </IconButton>
       <Box padding={4}>
-        <Typography fontWeight={500} textAlign='center' marginBottom={2}>PLATO</Typography>
+        <Typography fontWeight={500} textAlign='center' marginBottom={2}>{actualDish ? actualDish.denominacion : 'PLATO'}</Typography>
         <ItemManufacturedForm addNewDish={addNewDish} actualDish={actualDish} edit={edit} />
       </Box>
     </Dialog>
