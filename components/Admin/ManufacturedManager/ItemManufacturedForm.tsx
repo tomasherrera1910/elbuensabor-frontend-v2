@@ -4,9 +4,10 @@ import { Formik } from 'formik'
 import { type ItemManufactured } from '@/utils/types'
 import { postInfoFormData } from '@/utils/CRUDActions'
 import { useUserSession } from '@/store/user'
+import useDishesForm from '@/hooks/useDishesForm'
 
 interface Props {
-  handleDishes?: (dish: ItemManufactured) => void
+  handleDishes: (dish: ItemManufactured) => void
   edit?: boolean
   actualDish?: ItemManufactured
   addNewDish?: () => void
@@ -16,6 +17,7 @@ export default function ItemManufacturedForm ({ handleDishes, edit = false, actu
   const tabletOrHigherScreen = useMediaQuery(theme.breakpoints.up('sm'))
   const userInfo = useUserSession(state => state.userInfo)
   const initialValues = edit && actualDish ? { ...actualDish, imagen: '' } : { rubro: '', denominacion: '', precioVenta: '', tiempoEstimadoCocina: '', imagen: '' }
+  const { handleFormSubmit, response } = useDishesForm({ edit, handleDishes })
   return (
     <>
       <Formik
