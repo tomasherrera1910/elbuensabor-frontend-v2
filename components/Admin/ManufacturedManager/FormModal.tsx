@@ -6,12 +6,11 @@ import ItemManufacturedForm from './ItemManufacturedForm'
 interface Props {
   open: boolean
   handleClose: () => void
-  //   handleSupplies: (supply: ItemSupply) => void
+  handleDish: (dish: ItemManufactured) => void
   edit?: boolean
   actualDish?: ItemManufactured
-  addNewDish?: () => void
 }
-export default function DishFormModal ({ open, handleClose, edit, actualDish, addNewDish }: Props) {
+export default function DishFormModal ({ open, handleClose, edit, actualDish, handleDish }: Props) {
   return (
     <Dialog open={open} onClose={handleClose} scroll='paper'>
       <IconButton sx={{ position: 'absolute', right: 0 }} size='large' onClick={handleClose}>
@@ -19,7 +18,7 @@ export default function DishFormModal ({ open, handleClose, edit, actualDish, ad
       </IconButton>
       <Box padding={4}>
         <Typography fontWeight={500} textAlign='center' marginBottom={2}>{actualDish ? actualDish.denominacion : 'PLATO'}</Typography>
-        <ItemManufacturedForm addNewDish={addNewDish} actualDish={actualDish} edit={edit} />
+        <ItemManufacturedForm handleDishes={handleDish} actualDish={actualDish} edit={edit} />
       </Box>
     </Dialog>
   )
