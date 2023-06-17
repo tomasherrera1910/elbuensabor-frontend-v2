@@ -25,7 +25,7 @@ export default function ManufacturedManager ({ initialItems, supplies }: { initi
           Agregar Plato
         </Button>
       </Stack>
-      <DishFormModal open={open} handleClose={handleFormModal} addNewDish={addNewDish} />
+      <DishFormModal open={open} handleClose={handleFormModal} handleDish={addNewDish} />
       {!dishes?.length && <Typography textAlign='center'>No hay platos aún!</Typography>}
       <Stack direction='row' gap={2} flexWrap='wrap' justifyContent='center'>
         {dishes.map(dish => (
