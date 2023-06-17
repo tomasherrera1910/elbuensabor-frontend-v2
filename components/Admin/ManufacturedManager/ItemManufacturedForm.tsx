@@ -1,23 +1,19 @@
 import manufacturedItemSchema from '@/utils/yup/manufacturedItemSchema'
-import { Button, CircularProgress, FormControl, Input, InputLabel, MenuItem, Select, Stack, TextField, useMediaQuery, useTheme } from '@mui/material'
+import { Alert, Button, CircularProgress, FormControl, Input, InputLabel, MenuItem, Select, Stack, TextField, useMediaQuery, useTheme } from '@mui/material'
 import { Formik } from 'formik'
 import { type ItemManufactured } from '@/utils/types'
-import { postInfoFormData } from '@/utils/CRUDActions'
-import { useUserSession } from '@/store/user'
 import useDishesForm from '@/hooks/useDishesForm'
 
 interface Props {
   handleDishes: (dish: ItemManufactured) => void
   edit?: boolean
   actualDish?: ItemManufactured
-  addNewDish?: () => void
 }
-export default function ItemManufacturedForm ({ handleDishes, edit = false, actualDish = undefined, addNewDish = () => {} }: Props) {
+export default function ItemManufacturedForm ({ handleDishes, edit = false, actualDish = undefined }: Props) {
   const theme = useTheme()
   const tabletOrHigherScreen = useMediaQuery(theme.breakpoints.up('sm'))
-  const userInfo = useUserSession(state => state.userInfo)
   const initialValues = edit && actualDish ? { ...actualDish, imagen: '' } : { rubro: '', denominacion: '', precioVenta: '', tiempoEstimadoCocina: '', imagen: '' }
-  const { handleFormSubmit, response } = useDishesForm({ edit, handleDishes })
+  const { handleFormSubmit, response } = useDishesForm({ edit, handleDishes, id: actualDish?.id })
   return (
     <>
       <Formik
@@ -30,13 +26,7 @@ export default function ItemManufacturedForm ({ handleDishes, edit = false, actu
           data.append('denominacion', values.denominacion)
           data.append('precioVenta', String(values.precioVenta))
           data.append('tiempoEstimadoCocina', String(values.tiempoEstimadoCocina))
-          postInfoFormData('articulosManufacturados', userInfo?.token, data)
-            .then((_response) => {
-              addNewDish()
-            })
-            .finally(() => {
-              setSubmitting(false)
-            })
+          handleFormSubmit(data, setSubmitting)
         }}
       >
         {({
@@ -143,8 +133,8 @@ export default function ItemManufacturedForm ({ handleDishes, edit = false, actu
                   </Button>
                   )
               }
-              {/* {response?.error && <Alert severity='error' variant='outlined'>{response.error}</Alert>}
-              {response?.success && <Alert severity='success' variant='outlined'>{response.success}</Alert>} */}
+              {response?.error && <Alert severity='error' variant='outlined'>{response.error}</Alert>}
+              {response?.success && <Alert severity='success' variant='outlined'>{response.success}</Alert>}
             </Stack>
           </form>
         )}
