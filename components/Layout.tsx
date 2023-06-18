@@ -10,7 +10,7 @@ export default function Layout ({ children, disableLoader }: { children: ReactNo
   return (
     <Stack flexDirection='row'>
       {userSession && !loading && <Navbar />}
-      <main style={{ minHeight: '100vh', flexGrow: 1, display: 'flex', flexDirection: 'column', paddingTop: 80 }}>
+      <main style={{ minHeight: '100vh', flexGrow: 1, display: 'flex', flexDirection: 'column', padding: 4, paddingTop: 80 }}>
         {loading && !disableLoader && <LoadingPage />}
         {disableLoader && <>{children}</>}
         {user && userSession && !loading && !disableLoader && <>{children}</>}
