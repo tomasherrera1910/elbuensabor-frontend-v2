@@ -5,9 +5,9 @@ import loginSchema from '@/utils/yup/loginSchema'
 import { useUserSession } from '@/store/user'
 
 export default function LoginForm () {
-  const userInfo = useUserSession(state => state.userInfo)
+  // const userInfo = useUserSession(state => state.userInfo)
   const loginUser = useUserSession(state => state.loginUser)
-  console.log({ userInfo })
+  // console.log({ userInfo })
   return (
     <Formik
       initialValues={{ email: '', clave: '', submit: '' }}

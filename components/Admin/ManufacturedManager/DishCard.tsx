@@ -19,7 +19,7 @@ export default function DishCard ({ dish, supplies, removeDish, updateDish }: Pr
   const handleDelete = (id: string) => {
     deleteInfo(`articulosManufacturados/${id}`, userInfo?.token)
       .then((_response) => {
-        console.log('entro')
+        // console.log('entro')
         removeDish(id)
       })
       .catch((error) => {

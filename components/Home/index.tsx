@@ -3,8 +3,8 @@ import { Button, Container, Typography, useMediaQuery, useTheme } from '@mui/mat
 
 export default function Home () {
   const logout = useUserSession(state => state.logout)
-  const userInfo = useUserSession(state => state.userInfo)
-  console.log(userInfo)
+  // const userInfo = useUserSession(state => state.userInfo)
+  // console.log(userInfo)
   const theme = useTheme()
   const xlScreen = useMediaQuery(theme.breakpoints.up('xl'))
   return (

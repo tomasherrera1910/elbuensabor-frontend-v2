@@ -54,7 +54,7 @@ export async function editInfo (path: string, token?: string, body?: any) {
 
 export async function deleteInfo (path: string, token?: string) {
   const url = `${BASE_URL}/${path}`
-  console.log({ url })
+  // console.log({ url })
   const response = await fetch(url, {
     method: 'DELETE',
     headers: {

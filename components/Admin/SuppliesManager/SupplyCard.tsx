@@ -19,14 +19,14 @@ export default function SupplyCard ({ supply, updateSupply, removeSupply }: Prop
     isLoading(true)
     deleteInfo(`articulosInsumo/${id}`, userInfo?.token)
       .then((_response) => {
-        console.log('entro')
+        // console.log('entro')
         removeSupply(id)
       })
       .catch((error) => {
         console.error('Error: ', error)
       })
       .finally(() => {
-        console.log('entro')
+        // console.log('entro')
         isLoading(false)
       })
   }
