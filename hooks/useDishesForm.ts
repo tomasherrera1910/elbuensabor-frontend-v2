@@ -1,5 +1,5 @@
 import { useUserSession } from '@/store/user'
-import { editInfo, postInfo } from '@/utils/CRUDActions'
+import { postInfoFormData, putInfoFormData } from '@/utils/CRUDActions'
 import { ItemManufactured } from '@/utils/types'
 import { useState } from 'react'
 
@@ -12,7 +12,7 @@ const useDishesForm = ({ edit, handleDishes, id }: Params) => {
   const [response, setResponse] = useState< null | Record<string, string>>(null)
   const userInfo = useUserSession(state => state.userInfo)
   const postSubmit = (values: any, setSubmitting: (v: boolean) => void) => {
-    postInfo('articulosManufacturados', userInfo?.token, values)
+    postInfoFormData('articulosManufacturados', userInfo?.token, values)
       .then((newDish: ItemManufactured) => {
         handleDishes(newDish)
         setResponse({ success: '¡Articulo agregado con éxito!' })
@@ -25,7 +25,7 @@ const useDishesForm = ({ edit, handleDishes, id }: Params) => {
       })
   }
   const putSubmit = (values: any, setSubmitting: (v: boolean) => void) => {
-    editInfo(`articulosManufacturados/${id as string}`, userInfo?.token, values)
+    putInfoFormData(`articulosManufacturados/${id as string}`, userInfo?.token, values)
       .then((newDish: ItemManufactured) => {
         handleDishes(newDish)
         setResponse({ success: '¡Articulo actualizado con éxito!' })
