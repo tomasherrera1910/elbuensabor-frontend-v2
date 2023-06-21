@@ -6,6 +6,7 @@ import { useUserSession } from '@/store/user'
 import { deleteInfo } from '@/utils/CRUDActions'
 import useToggle from '@/hooks/useToggle'
 import DishFormModal from './FormModal'
+import { useState } from 'react'
 
 interface Props {
   dish: ItemManufactured
@@ -16,7 +17,9 @@ interface Props {
 export default function DishCard ({ dish, supplies, removeDish, updateDish }: Props) {
   const [open, handleFormModal] = useToggle()
   const userInfo = useUserSession(state => state.userInfo)
+  const [loadingDelete, isLoadingDelete] = useState(false)
   const handleDelete = (id: string) => {
+    isLoadingDelete(true)
     deleteInfo(`articulosManufacturados/${id}`, userInfo?.token)
       .then((_response) => {
         // console.log('entro')
@@ -24,6 +27,9 @@ export default function DishCard ({ dish, supplies, removeDish, updateDish }: Pr
       })
       .catch((error) => {
         console.error('Error: ', error)
+      })
+      .finally(() => {
+        isLoadingDelete(false)
       })
   }
   return (
@@ -46,7 +52,7 @@ export default function DishCard ({ dish, supplies, removeDish, updateDish }: Pr
         </CardContent>
         <CardActions>
           <Button size='small' variant='outlined' startIcon={<Edit />} onClick={() => { handleFormModal() }}>Editar</Button>
-          <Button size='small' color='error' variant='outlined' startIcon={<Delete />} onClick={() => { handleDelete(dish.id) }}>Eliminar</Button>
+          <Button size='small' color='error' variant='outlined' startIcon={<Delete />} onClick={() => { handleDelete(dish.id) }} disabled={loadingDelete}>{loadingDelete ? 'Cargando...' : 'Eliminar'}</Button>
         </CardActions>
       </Card>
       <DishFormModal handleClose={handleFormModal} open={open} actualDish={dish} edit handleDish={updateDish} />
