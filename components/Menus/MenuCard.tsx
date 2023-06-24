@@ -1,6 +1,6 @@
 import { ItemManufactured } from '@/utils/types'
 import { ExpandMore, ShoppingCart } from '@mui/icons-material'
-import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardActions, CardContent, CardMedia, ListItem, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
 import { useState } from 'react'
 
 export default function MenuCard ({ dish }: { dish: ItemManufactured }) {
@@ -11,7 +11,7 @@ export default function MenuCard ({ dish }: { dish: ItemManufactured }) {
       setExpanded(isExpanded ? panel : false)
     }
   return (
-    <Card sx={{ width: 300 }}>
+    <Card sx={{ width: 300, boxShadow: expanded ? 'auto' : 'none' }}>
       <CardMedia
         sx={{ height: 140 }}
         image={dish.imagen.url}
@@ -40,7 +40,7 @@ export default function MenuCard ({ dish }: { dish: ItemManufactured }) {
         </AccordionSummary>
         <AccordionDetails>
           {dish.ingredientes?.map(i => (
-            <Typography key={i.id}>{i.nombre}</Typography>
+            <Typography variant='body1' color='text.secondary' key={i.id}>{i.nombre}</Typography>
           ))}
         </AccordionDetails>
       </Accordion>
