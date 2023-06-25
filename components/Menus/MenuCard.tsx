@@ -11,7 +11,7 @@ export default function MenuCard ({ dish }: { dish: ItemManufactured }) {
       setExpanded(isExpanded ? panel : false)
     }
   return (
-    <Card sx={{ width: 300, boxShadow: expanded ? 'auto' : 'none' }}>
+    <Card sx={{ width: 300, boxShadow: expanded ? 'auto' : 'none' }} variant='outlined'>
       <CardMedia
         sx={{ height: 140 }}
         image={dish.imagen.url}
@@ -28,7 +28,7 @@ export default function MenuCard ({ dish }: { dish: ItemManufactured }) {
       <CardActions>
         <Button size='small' sx={{ fontSize: 12 }} variant='outlined' endIcon={<ShoppingCart fontSize='small' />}>Agregar a Carrito</Button>
       </CardActions>
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{ boxShadow: expanded ? 'auto' : 'none' }}>
         <AccordionSummary
           expandIcon={<ExpandMore />}
           aria-controls='panel1bh-content'
