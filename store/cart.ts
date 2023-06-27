@@ -1,16 +1,20 @@
-import { ItemManufactured } from '@/utils/types'
+import { ItemManufactured, ItemSupply } from '@/utils/types'
 import { create } from 'zustand'
 
+interface CartItem {
+  item: ItemManufactured | ItemSupply
+  quantity: number
+}
 interface State {
-  cart: ItemManufactured[]
-  addToCart: (item: ItemManufactured) => void
+  cart: CartItem[]
+  addToCart: (item: CartItem) => void
 }
 export const useUserAllInfo = create<State>((set, get) => {
   return {
     cart: [],
-    addToCart: (item: ItemManufactured) => {
+    addToCart: (item: CartItem) => {
       const actualCart = get().cart
-      set({ cart: [...actualCart, item] })
+      set({ cart: [...actualCart, { ...item, quantity: 1 }] })
     }
   }
 })
