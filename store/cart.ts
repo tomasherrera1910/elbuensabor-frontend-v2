@@ -9,6 +9,7 @@ interface State {
   cart: CartItem[]
   addToCart: (item: CartItem) => void
   deleteToCart: (name: string) => void
+  add: (index: number) => void
 }
 export const useUserAllInfo = create<State>((set, get) => {
   return {
@@ -20,6 +21,11 @@ export const useUserAllInfo = create<State>((set, get) => {
     deleteToCart: (name: string) => {
       const actualCart = get().cart
       set({ cart: actualCart.filter(item => item.item.denominacion !== name) })
+    },
+    add: (index: number) => {
+      const actualCart = get().cart
+      ++actualCart[index].quantity
+      set({ cart: actualCart })
     }
   }
 })
