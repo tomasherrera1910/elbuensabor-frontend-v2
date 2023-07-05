@@ -12,7 +12,7 @@ interface State {
   add: (index: number) => void
   remove: (index: number) => void
 }
-export const useUserAllInfo = create<State>((set, get) => {
+export const useCart = create<State>((set, get) => {
   return {
     cart: [],
     addToCart: (item: CartItem) => {
