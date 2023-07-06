@@ -1,15 +1,26 @@
+import { CartItem, useCart } from '@/store/cart'
 import { ItemManufactured } from '@/utils/types'
 import { ExpandMore, ShoppingCart } from '@mui/icons-material'
 import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
 import { useState } from 'react'
 
-export default function MenuCard ({ dish }: { dish: ItemManufactured }) {
+export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart: CartItem[] }) {
   const [expanded, setExpanded] = useState<string | false>(false)
-
+  const isInCart = cart.some(cartItem => cartItem.item.denominacion === dish.denominacion)
+  const addToCart = useCart(state => state.addToCart)
+  const deleteToCart = useCart(state => state.deleteToCart)
+  const handleCart = () => {
+    if (isInCart) {
+      deleteToCart(dish.denominacion)
+    } else {
+      addToCart(dish)
+    }
+  }
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false)
     }
+  console.log({ cart })
   return (
     <Card sx={{ width: 300, boxShadow: expanded ? 'auto' : 'none' }} variant='outlined'>
       <CardMedia
@@ -26,7 +37,9 @@ export default function MenuCard ({ dish }: { dish: ItemManufactured }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small' sx={{ fontSize: 12 }} variant='outlined' endIcon={<ShoppingCart fontSize='small' />}>Agregar a Carrito</Button>
+        <Button onClick={handleCart} size='small' sx={{ fontSize: 12 }} variant='outlined' color={isInCart ? 'error' : 'primary'} endIcon={<ShoppingCart fontSize='small' />}>
+          {isInCart ? 'Quitar del carrito' : 'Añadir a carrito'}
+        </Button>
       </CardActions>
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{ boxShadow: expanded ? 'auto' : 'none' }}>
         <AccordionSummary
