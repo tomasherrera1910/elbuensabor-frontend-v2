@@ -1,14 +1,17 @@
 import { CartItem, useCart } from '@/store/cart'
 import { ItemManufactured } from '@/utils/types'
-import { ExpandMore, ShoppingCart } from '@mui/icons-material'
-import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
+import { Add, ExpandMore, Remove, ShoppingCart } from '@mui/icons-material'
+import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardActions, CardContent, CardMedia, IconButton, Stack, Typography } from '@mui/material'
 import { useState } from 'react'
 
 export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart: CartItem[] }) {
   const [expanded, setExpanded] = useState<string | false>(false)
   const isInCart = cart.some(cartItem => cartItem.item.denominacion === dish.denominacion)
+  const itemInCart = isInCart ? { info: cart.find(cartItem => cartItem.item.denominacion === dish.denominacion), index: cart.findIndex(cartItem => cartItem.item.denominacion === dish.denominacion) } : undefined
   const addToCart = useCart(state => state.addToCart)
   const deleteToCart = useCart(state => state.deleteToCart)
+  const removeItem = useCart(state => state.remove)
+  const addItem = useCart(state => state.add)
   const handleCart = () => {
     if (isInCart) {
       deleteToCart(dish.denominacion)
@@ -40,6 +43,18 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
         <Button onClick={handleCart} size='small' sx={{ fontSize: 12 }} variant='outlined' color={isInCart ? 'error' : 'primary'} endIcon={<ShoppingCart fontSize='small' />}>
           {isInCart ? 'Quitar del carrito' : 'Añadir a carrito'}
         </Button>
+        {isInCart &&
+          <Stack direction='row' alignItems='center'>
+            <IconButton onClick={() => { removeItem(itemInCart?.index ?? 0) }}>
+              <Remove />
+            </IconButton>
+            <Typography>
+              {itemInCart?.info?.quantity}
+            </Typography>
+            <IconButton onClick={() => { addItem(itemInCart?.index ?? 0) }}>
+              <Add />
+            </IconButton>
+          </Stack>}
       </CardActions>
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{ boxShadow: expanded ? 'auto' : 'none' }}>
         <AccordionSummary
