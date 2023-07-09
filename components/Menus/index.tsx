@@ -13,7 +13,7 @@ export default function Menus ({ items }: Props) {
   return (
     <>
       <Container maxWidth={xlScreen ? 'lg' : 'md'}>
-        <Stack flexDirection='row' gap={2}>
+        <Stack flexDirection='row' flexWrap='wrap' justifyContent='center' gap={2}>
           {items.map(dish => (
             <MenuCard key={dish.id} dish={dish} cart={cart} />
           ))}
