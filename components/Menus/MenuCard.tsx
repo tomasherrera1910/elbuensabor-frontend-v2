@@ -7,7 +7,10 @@ import { useState } from 'react'
 export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart: CartItem[] }) {
   const [expanded, setExpanded] = useState<string | false>(false)
   const isInCart = cart.some(cartItem => cartItem.item.denominacion === dish.denominacion)
-  const itemInCart = isInCart ? { info: cart.find(cartItem => cartItem.item.denominacion === dish.denominacion), index: cart.findIndex(cartItem => cartItem.item.denominacion === dish.denominacion) } : undefined
+  const indexInCart = isInCart ? cart.findIndex(cartItem => cartItem.item.denominacion === dish.denominacion) : -1
+  const [itemInCart, setItemInCart] = useState(() => {
+    return isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined
+  })
   const addToCart = useCart(state => state.addToCart)
   const deleteToCart = useCart(state => state.deleteToCart)
   const removeItem = useCart(state => state.remove)
@@ -15,8 +18,10 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
   const handleCart = () => {
     if (isInCart) {
       deleteToCart(dish.denominacion)
+      setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
     } else {
       addToCart(dish)
+      setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
     }
   }
   const handleChange =
@@ -45,13 +50,23 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
         </Button>
         {isInCart &&
           <Stack direction='row' alignItems='center'>
-            <IconButton onClick={() => { removeItem(itemInCart?.index ?? 0) }}>
+            <IconButton
+              onClick={() => {
+                removeItem(itemInCart?.index ?? 0)
+                setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
+              }}
+              disabled={itemInCart?.info.quantity === 1}
+            >
               <Remove />
             </IconButton>
             <Typography>
-              {itemInCart?.info?.quantity}
+              {itemInCart?.info?.quantity ?? 1}
             </Typography>
-            <IconButton onClick={() => { addItem(itemInCart?.index ?? 0) }}>
+            <IconButton onClick={() => {
+              addItem(itemInCart?.index ?? 0)
+              setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
+            }}
+            >
               <Add />
             </IconButton>
           </Stack>}
