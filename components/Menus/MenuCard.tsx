@@ -44,12 +44,12 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
           $ {dish.precioVenta}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
         <Button onClick={handleCart} size='small' sx={{ fontSize: 12 }} variant='outlined' color={isInCart ? 'error' : 'primary'} endIcon={<ShoppingCart fontSize='small' />}>
           {isInCart ? 'Quitar del carrito' : 'Añadir a carrito'}
         </Button>
         {isInCart &&
-          <Stack direction='row' alignItems='center'>
+          <Stack direction='row' alignItems='center' justifyContent='center'>
             <IconButton
               onClick={() => {
                 removeItem(itemInCart?.index ?? 0)
@@ -59,7 +59,7 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
             >
               <Remove />
             </IconButton>
-            <Typography>
+            <Typography color='secondary'>
               {itemInCart?.info?.quantity ?? 1}
             </Typography>
             <IconButton onClick={() => {
