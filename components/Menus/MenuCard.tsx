@@ -28,7 +28,6 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false)
     }
-  console.log({ cart })
   return (
     <Card sx={{ width: 300, boxShadow: expanded ? 'auto' : 'none' }} variant='outlined'>
       <CardMedia
@@ -44,12 +43,12 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
           $ {dish.precioVenta}
         </Typography>
       </CardContent>
-      <CardActions sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+      <CardActions sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', height: 48 }}>
         <Button onClick={handleCart} size='small' sx={{ fontSize: 12 }} variant='outlined' color={isInCart ? 'error' : 'primary'} endIcon={<ShoppingCart fontSize='small' />}>
           {isInCart ? 'Quitar del carrito' : 'Añadir a carrito'}
         </Button>
         {isInCart &&
-          <Stack direction='row' alignItems='center' justifyContent='center'>
+          <Stack direction='row' alignItems='center' justifyContent='center' sx={{ padding: 0 }}>
             <IconButton
               onClick={() => {
                 removeItem(itemInCart?.index ?? 0)
@@ -59,7 +58,7 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
             >
               <Remove />
             </IconButton>
-            <Typography color='secondary'>
+            <Typography color='GrayText'>
               {itemInCart?.info?.quantity ?? 1}
             </Typography>
             <IconButton onClick={() => {
@@ -71,22 +70,25 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
             </IconButton>
           </Stack>}
       </CardActions>
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{ boxShadow: expanded ? 'auto' : 'none' }}>
-        <AccordionSummary
-          expandIcon={<ExpandMore />}
-          aria-controls='panel1bh-content'
-          id='panel1bh-header'
-        >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>
-            Ingredientes
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          {dish.ingredientes?.map(i => (
-            <Typography variant='body1' color='text.secondary' key={i.id}>{i.nombre}</Typography>
-          ))}
-        </AccordionDetails>
-      </Accordion>
+      {dish.ingredientes.length > 0 && (
+        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{ boxShadow: expanded ? 'auto' : 'none', minHeight: 'auto', margin: 0 }}>
+          <AccordionSummary
+            sx={{ height: 'fit-content' }}
+            expandIcon={<ExpandMore />}
+            aria-controls='panel1bh-content'
+            id='panel1bh-header'
+          >
+            <Typography sx={{ width: '33%', flexShrink: 0 }}>
+              Ingredientes
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails sx={{ paddingY: 0 }}>
+            {dish.ingredientes?.map(i => (
+              <Typography variant='body1' color='text.secondary' sx={{ padding: 0, paddingBottom: 1 }} key={i.id}>{i.nombre}</Typography>
+            ))}
+          </AccordionDetails>
+        </Accordion>
+      )}
     </Card>
   )
 }
