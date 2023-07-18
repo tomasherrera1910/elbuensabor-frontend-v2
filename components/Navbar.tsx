@@ -4,11 +4,14 @@ import { AppBar, Button, IconButton, Stack, Toolbar, Typography } from '@mui/mat
 import Link from 'next/link'
 import Sidebar from './Sidebar'
 import { useState } from 'react'
+import Cart from './Cart'
 
 export default function Navbar () {
   const userInfo = useUserSession(state => state.userInfo)
   const [open, isOpen] = useState(false)
   const handleSidebar = () => { isOpen(!open) }
+  const [openCart, isOpenCart] = useState(false)
+  const handleCart = () => { isOpenCart(!openCart) }
   return (
     <>
       <AppBar position='fixed'>
@@ -28,13 +31,14 @@ export default function Navbar () {
               <AccountCircle />
               <Typography>{userInfo?.username}</Typography>
             </Stack>
-            <IconButton color='inherit'>
+            <IconButton color='inherit' onClick={handleCart}>
               <ShoppingCart />
             </IconButton>
           </Stack>
         </Toolbar>
       </AppBar>
       <Sidebar open={open} handleClose={handleSidebar} />
+      <Cart open={openCart} handleClose={handleCart} />
     </>
   )
 }
