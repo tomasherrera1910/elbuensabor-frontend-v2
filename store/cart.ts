@@ -1,7 +1,7 @@
 import { ItemManufactured, ItemSupply } from '@/utils/types'
 import { create } from 'zustand'
 
-type Item = ItemManufactured | ItemSupply
+export type Item = ItemManufactured | ItemSupply
 export interface CartItem {
   item: Item
   quantity: number
