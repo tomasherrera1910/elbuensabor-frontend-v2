@@ -5,7 +5,7 @@ import CartCard from './CartCard'
 
 export default function Cart ({ open, handleClose }: { open: boolean, handleClose: () => void }) {
   const theme = useTheme()
-  const cart = useCart(state => state.cart)
+  const { cart } = useCart()
   return (
     <Drawer variant='temporary' open={open} onClose={handleClose} anchor='right' PaperProps={{ sx: { backgroundColor: theme.palette.primary.main, color: '#fff', paddingTop: { md: 8 }, paddingX: 4 } }}>
       <IconButton onClick={handleClose}>
