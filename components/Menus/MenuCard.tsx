@@ -8,9 +8,10 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
   const [expanded, setExpanded] = useState<string | false>(false)
   const isInCart = cart.some(cartItem => cartItem.item.denominacion === dish.denominacion)
   const indexInCart = isInCart ? cart.findIndex(cartItem => cartItem.item.denominacion === dish.denominacion) : -1
-  const [itemInCart, setItemInCart] = useState(() => {
-    return isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined
-  })
+  const itemInCart = isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined
+  // const [itemInCart, setItemInCart] = useState(() => {
+  //   return isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined
+  // })
   const addToCart = useCart(state => state.addToCart)
   const deleteToCart = useCart(state => state.deleteToCart)
   const removeItem = useCart(state => state.remove)
@@ -18,10 +19,10 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
   const handleCart = () => {
     if (isInCart) {
       deleteToCart(dish.denominacion)
-      setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
+      // setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
     } else {
       addToCart(dish)
-      setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
+      // setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
     }
   }
   const handleChange =
@@ -52,7 +53,7 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
             <IconButton
               onClick={() => {
                 removeItem(itemInCart?.index ?? 0)
-                setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
+                // setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
               }}
               disabled={itemInCart?.info.quantity === 1}
             >
@@ -63,7 +64,7 @@ export default function MenuCard ({ dish, cart }: { dish: ItemManufactured, cart
             </Typography>
             <IconButton onClick={() => {
               addItem(itemInCart?.index ?? 0)
-              setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
+              // setItemInCart(isInCart ? { info: cart[indexInCart], index: indexInCart } : undefined)
             }}
             >
               <Add />

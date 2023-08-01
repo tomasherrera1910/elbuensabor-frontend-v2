@@ -9,7 +9,7 @@ interface Props {
 export default function Menus ({ items }: Props) {
   const theme = useTheme()
   const xlScreen = useMediaQuery(theme.breakpoints.up('xl'))
-  const cart = useCart(state => state.cart)
+  const { cart } = useCart()
   return (
     <>
       <Container maxWidth={xlScreen ? 'lg' : 'md'}>
