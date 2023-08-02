@@ -10,7 +10,10 @@ import { useCart } from '@/store/cart'
 export default function Navbar () {
   const userInfo = useUserSession(state => state.userInfo)
   const [open, isOpen] = useState(false)
-  const cart = useCart(state => state.cart)
+  const { cart } = useCart()
+  const totalQuantity = cart.reduce((prevValue, current) => {
+    return prevValue + current.quantity
+  }, 0)
   const handleSidebar = () => { isOpen(!open) }
   const [openCart, isOpenCart] = useState(false)
   const handleCart = () => { isOpenCart(!openCart) }
@@ -35,7 +38,7 @@ export default function Navbar () {
             </Stack>
             <IconButton color='inherit' onClick={handleCart} sx={{ position: 'relative' }}>
               <ShoppingCart />
-              {cart.length > 0 && <div style={{ position: 'absolute', bottom: 0, right: 0, width: '16px', height: '16px', borderRadius: '9999px', backgroundColor: 'red', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '8px' }}>{cart.length}</div>}
+              {cart.length > 0 && <div style={{ position: 'absolute', bottom: 0, right: 0, width: '16px', height: '16px', borderRadius: '9999px', backgroundColor: 'red', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '8px' }}>{totalQuantity}</div>}
             </IconButton>
           </Stack>
         </Toolbar>
