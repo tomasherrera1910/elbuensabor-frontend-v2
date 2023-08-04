@@ -63,3 +63,10 @@ export interface ItemManufactured {
   imagen: DishImage
   ingredientes: Ingredient[]
 }
+
+export interface Address {
+  calle: String
+  numero: Number
+  localidad: String
+  user: User
+}
